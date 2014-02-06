@@ -20,4 +20,18 @@
 			<version>3.0.3</version>
 		</dependency>
 	</dependencies>
+	<distributionManagement>
+        <repository>
+            <id>triskell-public-release</id>
+            <name>Triskell public release repository on maven.irisa.fr</name>
+            <url>http://maven.irisa.fr/artifactory/triskell-public-release</url>
+            <uniqueVersion>false</uniqueVersion>
+        </repository>
+        <snapshotRepository>
+            <id>triskell-public-snapshot</id>
+            <name>Triskell public snapshot repository on maven.irisa.fr</name>
+            <url>http://maven.irisa.fr/artifactory/triskell-public-snapshot</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
