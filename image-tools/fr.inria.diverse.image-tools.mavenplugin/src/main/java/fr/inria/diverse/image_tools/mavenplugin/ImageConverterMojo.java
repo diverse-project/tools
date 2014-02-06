@@ -30,9 +30,8 @@ import org.apache.maven.project.MavenProject;
 /**
  * This class implement a maven plugin that convert an image file into another format
  *  
- * @goal generate
+ * @goal convert
  * @phase generate-sources
- * @requiresDependencyResolution compile
  * @author <a href="mailto:didier.vojtisek@inria.fr">Didier Vojtisek</a>
  * @version $Id$
  *
