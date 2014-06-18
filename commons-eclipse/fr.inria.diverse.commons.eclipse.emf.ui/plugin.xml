@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.core.resources.IFile"
+            id="fr.inria.diverse.commons.eclipse.emf.ui.contribution1">
+         <menu
+               id="fr.inria.diverse.commons.ui.menu"
+               label="DiverSE Tools"
+               path="additions">
+            <groupMarker
+                  name="group1">
+            </groupMarker>
+         </menu>
+         <menu
+               icon="images/EcoreModelFile.gif"
+               id="fr.inria.diverse.commons.eclipse.emf.ui.menu"
+               label="EMF Tools"
+               path="fr.inria.diverse.commons.ui.menu/group1">
+            <groupMarker
+                  name="group1">
+            </groupMarker>
+         </menu>
+         <action
+               class="fr.inria.diverse.commons.eclipse.emf.ui.popup.actions.CheckUnresolvedProxiesAction"
+               enablesFor="1"
+               id="fr.inria.diverse.commons.eclipse.emf.ui.CheckUnresolvedProxiesAction"
+               label="Check unresolved proxies"
+               menubarPath="fr.inria.diverse.commons.ui.menu/fr.inria.diverse.commons.eclipse.emf.ui.menu/group1">
+         </action>
+      </objectContribution>
+   </extension>
+
+</plugin>
