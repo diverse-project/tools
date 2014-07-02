@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/fr.inria.diverse.commons.eclipse.feature_1.0.0.qualifier.jar" id="fr.inria.diverse.commons.eclipse.feature" version="1.0.0.qualifier">
+      <category name="diverse_commons"/>
+   </feature>
+   <category-def name="diverse_commons" label="DiverSE Commons"/>
+</site>

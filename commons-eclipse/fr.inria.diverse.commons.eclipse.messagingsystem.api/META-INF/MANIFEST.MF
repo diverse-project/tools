@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: fr.inria.diverse.commons.eclipse.messagingsystem.api
+Bundle-SymbolicName: fr.inria.diverse.commons.eclipse.messagingsystem.api
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: INRIA
+Require-Bundle: org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .,
+ lib/fr.inria.diverse.commons.messagingsystem.api.jar
+Export-Package: fr.inria.diverse.commons.messagingsystem.api,
+ fr.inria.diverse.commons.messagingsystem.api.impl,
+ fr.inria.diverse.commons.messagingsystem.api.reference,
+ fr.inria.diverse.commons.messagingsystem.api.result
+
