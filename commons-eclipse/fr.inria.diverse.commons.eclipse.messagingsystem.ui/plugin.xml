@@ -23,7 +23,7 @@
       <page
             category="org.eclipse.ui.preferencePages.Workbench"
             class="fr.inria.diverse.commons.eclipse.messagingsystem.ui.preferences.EclipseMessagingSystemPreferencePage"
-            id="org.kermeta.utils.systemservices.eclipse.preferences.EclipseMessagingSystemPreferencePage"
+            id="fr.inria.diverse.commons.eclipse.messagingsystem.ui.preferences.EclipseMessagingSystemPreferencePage"
             name="Kermeta messaging system">
       </page>
    </extension>

@@ -29,7 +29,7 @@ import fr.inria.diverse.commons.messagingsystem.api.impl.StdioSimpleMessagingSys
 public class Activator extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.kermeta.utils.systemservices.eclipse"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "fr.inria.diverse.commons.eclipse.messagingsystem.ui"; //$NON-NLS-1$
 
 	// The shared instance
 	private static Activator plugin;
