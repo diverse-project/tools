@@ -19,4 +19,5 @@ Require-Bundle: fr.inria.diverse.commons.eclipse.messagingsystem.api,
                      		org.eclipse.ui.console,
                      		org.eclipse.ui.editors
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: fr.inria.diverse.commons.eclipse.messagingsystem.ui
 
