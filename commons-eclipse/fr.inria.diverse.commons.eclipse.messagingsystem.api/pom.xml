@@ -77,4 +77,10 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<repositories>
+        <repository>
+            <id>Inria Maven repository</id>
+            <url>http://maven.inria.fr/artifactory/public/</url>
+        </repository>
+    </repositories>
 </project>
