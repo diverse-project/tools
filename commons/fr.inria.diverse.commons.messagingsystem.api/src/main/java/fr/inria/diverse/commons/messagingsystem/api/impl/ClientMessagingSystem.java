@@ -22,7 +22,7 @@ public class ClientMessagingSystem extends MessagingSystem{
 	java.io.BufferedReader in = null;
 	
 	public ClientMessagingSystem(int port, String address) {
-	  super("", "");
+	  
 	  try {
 	    kkSocket = new Socket(address, port);
 	    out = new ObjectOutputStream(kkSocket.getOutputStream());

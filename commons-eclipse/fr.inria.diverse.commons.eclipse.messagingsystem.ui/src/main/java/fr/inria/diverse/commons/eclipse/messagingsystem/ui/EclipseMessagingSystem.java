@@ -37,7 +37,7 @@ import fr.inria.diverse.commons.messagingsystem.api.reference.Reference;
 
 public class EclipseMessagingSystem extends MessagingSystem {
 
-	protected String baseMessageGroup = "";
+	
 	
 	
 	protected String consoleTitle = "";

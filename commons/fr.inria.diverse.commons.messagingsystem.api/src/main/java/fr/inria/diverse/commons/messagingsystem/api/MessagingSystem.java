@@ -30,15 +30,16 @@ public abstract class MessagingSystem {
 	protected String userFriendlyName = "";
 	
 	/**
-	 * 
+	 * Initialize the MessagingSystem
 	 * @param baseMessageGroup is used as id for the MessagingSystem, if several MessagingSystem 
 	 * in a platform use the same baseMessageGroup, then the platform may share some resource (like consoles for ex) 
 	 * as the messages are supposed to be in the same group. 
 	 * @param userFriendlyName name used when requiring to display this MessagingSystem to the user (like console window name, ...)
 	 */
-	public MessagingSystem(String baseMessageGroup, String userFriendlyName){
+	public MessagingSystem initialize(String baseMessageGroup, String userFriendlyName){
 		this.baseMessageGroup = baseMessageGroup;
 		this.userFriendlyName = userFriendlyName;
+		return this;
 	}
 	
 	/** remove old log message from the user view if any */

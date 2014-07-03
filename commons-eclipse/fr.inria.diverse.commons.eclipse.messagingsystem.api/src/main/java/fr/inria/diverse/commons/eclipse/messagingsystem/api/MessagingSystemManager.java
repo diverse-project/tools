@@ -44,6 +44,7 @@ public class MessagingSystemManager {
 			//String name = confElements[i].getAttribute(MESSAGINGSYSTEM_EXTENSION_POINT_CONTRIB_NAME_ATT);
 			try {
 				result = (MessagingSystem) confElements[i].createExecutableExtension(MESSAGINGSYSTEM_EXTENSION_POINT_CONTRIB_MESSAGINGSYSTEM_ATT);
+				result.initialize("", "Default MessagingSystem");
 				if(result != null)	break;
 			} catch (CoreException e) {;
 			}
