@@ -24,6 +24,10 @@ import fr.inria.diverse.commons.messagingsystem.api.reference.Reference;
  */
 public class StdioSimpleMessagingSystem extends MessagingSystem {
 
+	public StdioSimpleMessagingSystem() {
+		super("", "");
+	}
+
 	@Override
 	public void clearLog(){
 	}

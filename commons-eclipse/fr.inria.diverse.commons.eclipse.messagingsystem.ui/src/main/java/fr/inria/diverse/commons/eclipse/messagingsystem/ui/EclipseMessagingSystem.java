@@ -56,7 +56,7 @@ public class EclipseMessagingSystem extends MessagingSystem {
 	public ConsoleIO getConsoleIO() {
 		if(consoleIO == null){
 			if(baseMessageGroup == null || baseMessageGroup.isEmpty()){
-				consoleIO = Activator.getDefault().getConsoleIO(); // use default kermeta console
+				consoleIO = Activator.getDefault().getConsoleIO(); // use default MessagingSystem console
 			}
 			else{
 				consoleIO = EclipseConsoleIOFactory.getInstance().getConsoleIO(baseMessageGroup, consoleTitle);

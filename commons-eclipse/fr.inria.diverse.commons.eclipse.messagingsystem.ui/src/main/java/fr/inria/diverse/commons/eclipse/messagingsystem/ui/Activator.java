@@ -34,7 +34,7 @@ public class Activator extends AbstractUIPlugin {
 	// The shared instance
 	private static Activator plugin;
 
-	protected MessagingSystem messaggingSystem;
+	//protected MessagingSystem messaggingSystem;
 	protected EclipseConsoleIO consoleIO = null;
 
 	/**
@@ -53,7 +53,7 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		messaggingSystem = new StdioSimpleMessagingSystem();
+		//messaggingSystem = new StdioSimpleMessagingSystem();
 
 		
 		final IWorkbench workbench = PlatformUI.getWorkbench();
@@ -92,9 +92,9 @@ public class Activator extends AbstractUIPlugin {
 		return plugin;
 	}
 
-	public MessagingSystem getMessaggingSystem() {
-		return messaggingSystem;
-	}
+	//public MessagingSystem getMessaggingSystem() {
+	//	return messaggingSystem;
+	//}
 
 	public void clearConsole() {
 		getConsoleIO().clear();
@@ -104,7 +104,7 @@ public class Activator extends AbstractUIPlugin {
 		if (consoleIO == null) {
 			String bundleSymbolicName = getBundle().getHeaders().get("Bundle-SymbolicName").toString();
 			String consoleUId = bundleSymbolicName + this.hashCode();
-			consoleIO = EclipseConsoleIOFactory.getInstance().getConsoleIO(consoleUId, "Default kermeta console");			
+			consoleIO = EclipseConsoleIOFactory.getInstance().getConsoleIO(consoleUId, "Default MessagingSystem console");			
 		}
 		return consoleIO;
 	}

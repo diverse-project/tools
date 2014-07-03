@@ -33,4 +33,11 @@
             class="fr.inria.diverse.commons.eclipse.messagingsystem.ui.preferences.PreferenceInitializer">
       </initializer>
    </extension>
+   <extension
+         point="fr.inria.diverse.commons.eclipse.messagingsystem">
+      <MessagingSystem_Contribution
+            MessagingSystem_class="fr.inria.diverse.commons.eclipse.messagingsystem.ui.EclipseMessagingSystem"
+            name_string="EclipseMessagingSystem">
+      </MessagingSystem_Contribution>
+   </extension>
 </plugin>
