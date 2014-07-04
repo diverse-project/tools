@@ -1,0 +1,162 @@
+<!-- $Id: $ -->
+<!-- License    : EPL                                    -->
+<!-- Project    : org.kermeta.kp.editor -->
+<!-- Copyright  : IRISA / INRIA / Universite de Rennes 1 --> 
+<!-- Authors : Haja Rambelontsalama <hrambelo@irisa.fr> --> 
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>org.eclipse.emf.ecoretools.registration.ui</artifactId>
+  <name>ecoretools.registration.ui :: Ecore Package registration UI</name>
+  <packaging>bundle</packaging>
+
+  <parent>
+    <groupId>org.eclipse.emf.ecoretools</groupId>
+    <artifactId>org.eclipse.emf.ecoretools.root</artifactId>
+    <version>0.1.1</version>
+    <relativePath>../org.eclipse.emf.ecoretools.root/pom.xml</relativePath>
+  </parent>
+
+  <build>
+    <!--
+      Manage mutli-source java project. Copy the src files inside the
+      targetPath, the unique location for maven compiling Drawback : once
+      compiled the sources are not visible as java packages
+    -->
+    <sourceDirectory>src</sourceDirectory>
+    <resources>
+			<resource>
+				<directory>.</directory>
+				<includes>
+					<include>plugin.properties</include>
+					<include>plugin.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>./images</directory>
+				<targetPath>images</targetPath>
+			</resource>
+			<resource>
+				<directory>./css</directory>
+				<targetPath>css</targetPath>
+			</resource>
+		</resources>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <argLine>-Xmx1024m</argLine>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+      <!-- Add generated source to build cycle -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.7</version>
+        <executions>
+          <execution>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>../src/main/java-gen</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
+            <Bundle-Name>${project.name}</Bundle-Name>
+            <Bundle-Vendor>${bundle.vendor}</Bundle-Vendor>
+            <Bundle-Version>${bundle.version}</Bundle-Version>
+            <Bundle-ClassPath>.</Bundle-ClassPath>
+            <Bundle-Activator>org.eclipse.emf.ecoretools.registration.ui.RegistrationUIPlugin</Bundle-Activator>
+            <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+             <!-- Dependency used for compiling all the bundle (with dependecy to org.eclipse.core.* -->
+             
+            <Require-Bundle>
+	             org.eclipse.ui,
+	 			 org.eclipse.core.runtime,
+				 org.eclipse.core.resources,
+				 org.eclipse.emf.codegen.ecore,
+ 				 org.eclipse.emf.ecoretools.registration,
+				 org.eclipse.uml2.uml
+            </Require-Bundle>
+            
+            <Export-Package>
+             	org.eclipse.emf.ecoretools.registration.popup.actions,
+             	org.eclipse.emf.ecoretools.registration.ui,
+             	org.eclipse.emf.ecoretools.registration.view
+            </Export-Package>
+            <!--
+              specify the packages that should be imported to correctly build
+              the bundle (i.e <packaging>bundle<packaging> ".*" to also include
+              sub packages use the ! for avoiding to import some packages that
+              are already there with the Require-Bundle
+            -->
+            <Import-Package>
+              !org.eclipse.*,
+              *
+            </Import-Package>
+
+            <!--
+              add extra element in the manifest, copy them from this file ex:
+              Bundle-ActivationPolicy: lazy
+            -->
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>    
+    <dependency>
+      <groupId>org.eclipse.emf.ecoretools</groupId>
+      <artifactId>org.eclipse.emf.ecoretools.registration</artifactId>
+      <version>${emf.ecoretools.version}</version>
+    </dependency>    
+    <dependency>
+      <groupId>org.eclipse</groupId>
+      <artifactId>ui</artifactId>
+      <version>[3.7.0,)</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.swt.gtk.linux</groupId>
+      <artifactId>x86_64</artifactId>
+      <version>[3.7.0,)</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.emf.codegen</groupId>
+      <artifactId>ecore</artifactId>
+      <version>[2.6.0,)</version>
+    </dependency>
+    <!-- 
+    <dependency>
+      <groupId>org.kermeta.eclipse</groupId>
+      <artifactId>org.eclipse.equinox.common</artifactId>
+      <version>[3.5.1.0,)</version>
+    </dependency>
+    <dependency>
+      <groupId>org.kermeta.eclipse</groupId>
+      <artifactId>org.eclipse.equinox.registry</artifactId>
+      <version>[3.4.100.0,)</version>
+    </dependency>
+    <dependency>
+      <groupId>org.kermeta.eclipse</groupId>
+      <artifactId>org.eclipse.core.jobs</artifactId>
+      <version>[3.4.100.0,)</version>
+    </dependency>
+    -->
+  </dependencies>
+</project>

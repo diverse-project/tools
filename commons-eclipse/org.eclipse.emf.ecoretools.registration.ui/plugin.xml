@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.eclipse.emf.ecoretools.registration.epackagesregistration"
+            nameFilter="*.ecore"
+            objectClass="org.eclipse.core.resources.IFile">
+         <menu
+	         id="org.eclipse.emf.ecoretools.registration.epackagesregistration.subMenu"
+	         label="EPackages registration"
+	         path="additions">
+      		<separator name="emfregistration"/>
+		</menu>
+        <action
+              class="org.eclipse.emf.ecoretools.registration.popup.actions.EcoreRegisteringAction"
+              enablesFor="*"
+              icon="images/RegisterEcoreFile.gif"
+              id="org.eclipse.emf.ecoretools.registration.EcoreRegister"
+              label="Register EPackages into repository"
+              menubarPath="org.eclipse.emf.ecoretools.registration.epackagesregistration.subMenu/emfregistration">
+        </action>
+       <action
+               enablesFor="*"
+               label="Unregister EPackages from repository"
+               icon="images/UnregisterEcoreFile.gif"
+               menubarPath="org.eclipse.emf.ecoretools.registration.epackagesregistration.subMenu/emfregistration" 
+               class="org.eclipse.emf.ecoretools.registration.popup.actions.EcoreUnregisteringAction"
+               id="org.eclipse.emf.ecoretools.registration.EcoreUnregister"/>
+       <action
+              class="org.eclipse.emf.ecoretools.registration.popup.actions.EcoreReRegisteringAction"
+              enablesFor="*"
+              icon="images/RegisterEcoreFile.gif"
+              id="org.eclipse.emf.ecoretools.registration.EcoreReRegister"
+              label="Re-Register EPackages into repository"
+              menubarPath="org.eclipse.emf.ecoretools.registration.epackagesregistration.subMenu/emfregistration">
+        </action>       
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.eclipse.emf.ecoretools.registration.umlregistration"
+            nameFilter="*.uml"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="org.eclipse.emf.ecoretools.registration.popup.actions.UMLRegisteringAction"
+               enablesFor="*"
+               icon="images/RegisterEcoreFile.gif"
+               id="org.eclipse.emf.ecoretools.registration.UMLRegister"
+               label="Register EPackages from UML profile file"
+               menubarPath="org.eclipse.emf.ecoretools.registration.umlepackagesregistration.subMenu/umlregistration">
+         </action>
+         <menu
+               id="org.eclipse.emf.ecoretools.registration.umlepackagesregistration.subMenu"
+               label="EPackages registration"
+               path="additions">
+            <separator
+                  name="umlregistration">
+            </separator>
+         </menu>
+      </objectContribution>
+	</extension>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="EPackages registration"
+            id="org.eclipse.emf.ecoretools.registration.view">
+      </category>
+      <view
+            allowMultiple="false"
+            category="org.eclipse.emf.ecoretools.registration.view"
+            class="org.eclipse.emf.ecoretools.registration.view.RegisteredPackageView"
+            icon="images/RegisteredEPackage.gif"
+            id="org.eclipse.emf.ecoretools.registration.viewregisteredpackages"
+            name="EMF registered packages"/>
+   </extension>
+</plugin>

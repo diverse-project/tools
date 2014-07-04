@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EPackages Registration UI Plug-in
+Bundle-SymbolicName: org.eclipse.emf.ecoretools.registration.ui;singleton:=true
+Bundle-Version: 1.4.0
+Bundle-Activator: org.eclipse.emf.ecoretools.registration.ui.RegistrationUIPlugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.emf.ecoretools.registration,
+ org.eclipse.emf.codegen.ecore;bundle-version="2.4.0",
+ org.eclipse.emf.ecore.xmi;bundle-version="2.4.0"
+Bundle-ActivationPolicy: lazy
+Export-Package: org.eclipse.emf.ecoretools.registration.popup.actions;x-internal:=true,
+ org.eclipse.emf.ecoretools.registration.ui;x-internal:=true,
+ org.eclipse.emf.ecoretools.registration.view;x-internal:=true
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Vendor: INRIA

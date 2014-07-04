@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EPackages Registration Plug-in
+Bundle-SymbolicName: org.eclipse.emf.ecoretools.registration;singleton:=true
+Bundle-Version: 1.4.0
+Bundle-Activator: org.eclipse.emf.ecoretools.registration.RegistrationPlugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.uml2.uml;bundle-version="3.1.1"
+Bundle-ActivationPolicy: lazy
+Export-Package: org.eclipse.emf.ecoretools.registration,
+ org.eclipse.emf.ecoretools.registration.exceptions,
+ org.eclipse.emf.ecoretools.registration.internal;x-friends:="org.eclipse.emf.ecoretools.registration.ui"
+Bundle-Vendor: INRIA
+Bundle-ClassPath: .
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

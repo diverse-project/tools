@@ -1,0 +1,52 @@
+<!-- $Id: pom.xml 15688 2011-07-27 14:31:16Z bouhours $ -->
+<!-- License    : EPL                                    -->
+<!-- Project    : org.kermeta.language.model -->
+<!-- Copyright  : IRISA / INRIA / Universite de Rennes 1 --> 
+<!-- Authors : 	Didier Vojtisek <didier.vojtisek@inria.fr>
+				Francois.Fouquet <Francois.fouquet@irisa.fr>
+				Haja Rambelontsalama <hrambelo@irisa.fr> --> 
+				
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>org.eclipse.emf.ecoretools.registration.feature</artifactId>
+    <version>0.1.1</version>
+    <packaging>jar</packaging>
+    <name>${project.artifactId}</name>
+    
+    <parent>
+        <groupId>org.eclipse.emf.ecoretools</groupId>
+        <artifactId>org.eclipse.emf.ecoretools.root</artifactId>
+        <version>0.1.1</version>
+        <relativePath>../org.eclipse.emf.ecoretools.root/pom.xml</relativePath>
+    </parent>
+    <properties>
+    	<maven.build.timestamp.format>yyyyMMdd_HHmm</maven.build.timestamp.format>
+    	<buildNumber>${maven.build.timestamp}</buildNumber>
+    </properties>
+    <build>
+    	<!-- Add resources from the plugin structure -->
+        <resources>
+	      	<resource>
+	        	<directory>.</directory>
+	        	<includes>
+	          		<include>feature.xml</include>
+	        	</includes>
+	        	<filtering>true</filtering>
+	      	</resource>
+	    </resources>
+        <plugins>
+
+
+            <!-- Creation of the bundle jar and its manifest -->
+            <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.1</version>
+			</plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+    </dependencies>
+</project>
