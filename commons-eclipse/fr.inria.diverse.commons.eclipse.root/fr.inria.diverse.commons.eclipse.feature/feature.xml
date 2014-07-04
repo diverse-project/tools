@@ -13,6 +13,10 @@
       [Enter License Description here.]
    </license>
 
+   <includes
+         id="org.eclipse.emf.ecoretools.registration.feature"
+         version="0.0.0"/>
+
    <plugin
          id="fr.inria.diverse.commons.eclipse.messagingsystem.api"
          download-size="0"
@@ -22,6 +26,13 @@
 
    <plugin
          id="fr.inria.diverse.commons.eclipse.messagingsystem.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="fr.inria.diverse.commons.eclipse.emf.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"

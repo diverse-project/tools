@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.emf.ecoretools.registration.feature"
       label="EPackage registrationFeature"
-      version="${bundle.version}"
+      version="0.1.2.qualifier"
       provider-name="IRISA/INRIA">
 
    <description>
@@ -12,11 +12,11 @@ It also proposes a view showing all registered EPackages and their origin.
    </description>
 
    <copyright>
-      Copyright (c) 2005-2012 Triskell project, INRIA/IRISA, France
+      Copyright (c) 2005-2014 Triskell project, INRIA/IRISA, France
    </copyright>
 
    <license url="">
-      EPL V1.0, Copyright (c) 2005-2012 Triskell project, INRIA/IRISA 
+      EPL V1.0, Copyright (c) 2005-2014 Triskell project, INRIA/IRISA 
  
  All rights reserved. This program and the accompanying materials
  are made available under the terms of the Eclipse Public License v1.0 

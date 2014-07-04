@@ -9,6 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>org.eclipse.emf.ecoretools.registration</artifactId>
   <name>ecoretools.registration :: Ecore Package registration</name>
+  <version>0.1.2-SNAPSHOT</version>
   <packaging>bundle</packaging>
 
   <parent>

@@ -10,9 +10,12 @@
         <module>../fr.inria.diverse.commons.eclipse.messagingsystem.api</module>
         <module>../fr.inria.diverse.commons.eclipse.messagingsystem.ui</module>
         <module>../fr.inria.diverse.commons.eclipse.emf.ui</module>
+        <module>../org.eclipse.emf.ecoretools.registration</module>
+        <module>../org.eclipse.emf.ecoretools.registration.ui</module>
 
         <!-- feature and update site -->
         <module>fr.inria.diverse.commons.eclipse.feature</module>
+        <module>../org.eclipse.emf.ecoretools.registration.feature</module>
         <module>p2updatesite</module>
     </modules>
 

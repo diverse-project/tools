@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: EPackages Registration UI Plug-in
 Bundle-SymbolicName: org.eclipse.emf.ecoretools.registration.ui;singleton:=true
-Bundle-Version: 1.4.0
+Bundle-Version: 0.1.2.qualifier
 Bundle-Activator: org.eclipse.emf.ecoretools.registration.ui.RegistrationUIPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
