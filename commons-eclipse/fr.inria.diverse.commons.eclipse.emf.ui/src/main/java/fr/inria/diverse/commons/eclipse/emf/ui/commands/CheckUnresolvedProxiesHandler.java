@@ -76,10 +76,10 @@ public class CheckUnresolvedProxiesHandler extends AbstractHandler implements
 		Map<EObject, Collection<Setting>> unresolvedProxies = EcoreUtil.UnresolvedProxyCrossReferencer
 				.find(resourceSet);
 		if (unresolvedProxies.size() != 0) {
-			sb.append("UNRESOLVED PROXIES FOUND ! the first is "
+			sb.append("\nUNRESOLVED PROXIES FOUND ! the first is "
 					+ unresolvedProxies.entrySet().toArray()[0] + "\n");
 		} else {
-			sb.append("no unresolved proxies");
+			sb.append("\nALL PROXIES HAVE BEEN SUCCESSFULY RESOLVED");
 		}
 
 		MessageDialog.openInformation(
