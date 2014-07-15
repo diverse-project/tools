@@ -33,8 +33,18 @@ public class MessagingSystemManager {
 	/**
 	 * 
 	 * @return a new MessagingSystem that is supposed to be the best implementation for the current platform
+	 * use the default paramters, so the platform may decide to group the messages in a single console to save resources
 	 */
 	public MessagingSystem createBestPlatformMessagingSystem(){
+		return createBestPlatformMessagingSystem("", "Default MessagingSystem");
+	}
+	/**
+	 * 
+	 * @return a new MessagingSystem that is supposed to be the best implementation for the current platform
+	 * @param baseMessageGroup id for the messaging system, if two instances of MessagingSystem use the same id, the platform may decide to group the messages in a single console
+	 * @param userFriendlyName, name for the console, if several instances use the same  baseMessageGroup, it will use one of the userFriendlyName (the first that is created) 
+	 */
+	public MessagingSystem createBestPlatformMessagingSystem(String baseMessageGroup, String userFriendlyName ){
 		MessagingSystem result = null;
 		IConfigurationElement[] confElements = Platform.getExtensionRegistry()
 				.getConfigurationElementsFor(MESSAGINGSYSTEM_EXTENSION_POINT_NAME);
@@ -44,7 +54,7 @@ public class MessagingSystemManager {
 			//String name = confElements[i].getAttribute(MESSAGINGSYSTEM_EXTENSION_POINT_CONTRIB_NAME_ATT);
 			try {
 				result = (MessagingSystem) confElements[i].createExecutableExtension(MESSAGINGSYSTEM_EXTENSION_POINT_CONTRIB_MESSAGINGSYSTEM_ATT);
-				result.initialize("", "Default MessagingSystem");
+				result.initialize(baseMessageGroup, userFriendlyName);
 				if(result != null)	break;
 			} catch (CoreException e) {;
 			}
