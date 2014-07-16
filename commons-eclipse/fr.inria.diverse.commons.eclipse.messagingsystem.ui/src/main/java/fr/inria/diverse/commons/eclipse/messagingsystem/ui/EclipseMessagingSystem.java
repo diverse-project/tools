@@ -36,19 +36,11 @@ import fr.inria.diverse.commons.messagingsystem.api.reference.Reference;
 
 
 public class EclipseMessagingSystem extends MessagingSystem {
-
-	
-	
-	
-	protected String consoleTitle = "";
 	
 	EclipseReporter eclipseReporter;
 	
 	protected ConsoleIO consoleIO; 
 	
-	
-	
-
 	protected int progressBarMaxDepth = 1;
 	protected long progressBarIdleTime = 100;
 	protected int progressBarScale = 1000;
@@ -59,7 +51,7 @@ public class EclipseMessagingSystem extends MessagingSystem {
 				consoleIO = Activator.getDefault().getConsoleIO(); // use default MessagingSystem console
 			}
 			else{
-				consoleIO = EclipseConsoleIOFactory.getInstance().getConsoleIO(baseMessageGroup, consoleTitle);
+				consoleIO = EclipseConsoleIOFactory.getInstance().getConsoleIO(baseMessageGroup, userFriendlyName);
 			}
 		}
 		return consoleIO;
@@ -78,13 +70,10 @@ public class EclipseMessagingSystem extends MessagingSystem {
 		this.consoleLogLevel = consoleLogLevel;
 	}
 
-	public EclipseMessagingSystem(String baseMessageGroup, String consoleTitle) {
-		super();
-		this.baseMessageGroup = baseMessageGroup;
-		this.consoleTitle = consoleTitle;
+	public EclipseMessagingSystem() {
 		this.eclipseReporter = new EclipseReporter(this);		
 	}
-
+	
 	@Override
 	public void doneProgress(String progressGroup, String msg, String msgGroup) {
 
