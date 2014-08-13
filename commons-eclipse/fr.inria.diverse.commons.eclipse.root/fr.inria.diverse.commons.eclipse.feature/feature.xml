@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="fr.inria.diverse.commons.eclipse.feature"
-      label="Diverse Commons"
+      label="DiverSE Commons"
       version="1.0.0.qualifier"
       provider-name="INRIA">
 
-   <copyright url="http://www.example.com/copyright">
-      [Enter Copyright Description here.]
+   <description url="http://diverse.irisa.fr">
+      Commons libs that can be reused accross projects
+   </description>
+
+   <copyright url="http://diverse.irisa.fr">
+      Provided by DiverSE team http://diverse.irisa.fr
    </copyright>
 
    <license url="http://www.example.com/license">
