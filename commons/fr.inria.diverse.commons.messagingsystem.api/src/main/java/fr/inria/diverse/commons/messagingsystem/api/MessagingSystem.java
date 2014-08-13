@@ -122,4 +122,10 @@ public abstract class MessagingSystem {
 		log(MessagingSystem.Kind.UserERROR, message, messageGroup, null);
 	}
 	
+	
+	/** 
+	 * add user focus on the given MessagingSystem
+	 * The behavior may vary depending on the concrete implementation of the Messaging system
+	 */
+	public void focus(){};
 }

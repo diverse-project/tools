@@ -457,4 +457,9 @@ public class EclipseMessagingSystem extends MessagingSystem {
 			((EclipseConsoleIO)getConsoleIO()).showConsole();
 		}
 	}
+	
+	@Override
+	public void focus(){
+		showConsole();
+	}
 }
