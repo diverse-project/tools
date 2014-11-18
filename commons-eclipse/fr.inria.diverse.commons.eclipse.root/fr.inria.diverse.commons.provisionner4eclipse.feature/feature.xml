@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="fr.inria.diverse.commons.provisionner4eclipse.feature"
+      label="DiverSE OSGI Provisionner"
+      version="1.0.0.qualifier"
+      provider-name="INRIA">
+
+   <description url="http://diverse.irisa.fr">
+      Commons libs that can be reused accross projects
+   </description>
+
+   <copyright url="http://diverse.irisa.fr">
+      Provided by DiverSE team http://diverse.irisa.fr
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import feature="org.eclipse.emf.ecoretools.registration.feature" version="0.1.0.qualifier" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="fr.inria.diverse.commons.aether"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="fr.inria.diverse.commons.eclipse"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="fr.inria.diverse.commons.eclipse.jface"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="fr.inria.diverse.commons.provisionner4eclipse"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

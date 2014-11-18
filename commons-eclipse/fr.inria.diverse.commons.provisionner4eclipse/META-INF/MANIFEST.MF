@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1374669292135
+Build-Jdk: 1.6.0_43
+Built-By: dvojtise
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.kermeta.utils.provisionner4eclipse.Activator
+Bundle-ClassPath: .
+Bundle-Localization: plugin
+Bundle-ManifestVersion: 2
+Bundle-Name: Provisionner for Eclipse
+Bundle-SymbolicName: fr.inria.diverse.commons.provisionner4eclipse;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Created-By: Apache Maven Bundle Plugin
+Export-Package: org.kermeta.utils.provisionner4eclipse.preferences
+Import-Package: fr.inria.diverse.commons.aether,
+ fr.inria.diverse.commons.eclipse.jface.preference,
+ org.eclipse.core.runtime.jobs
+Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime
+Tool: Bnd-1.50.0

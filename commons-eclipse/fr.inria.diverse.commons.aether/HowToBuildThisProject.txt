@@ -1,0 +1,18 @@
+This project is intended to be built with maven.
+
+Two default environments can typically be used :
+1/ On command line with
+	"mvn install"
+2/ In Eclipse using mvn eclipse:eclipse
+	Prerequisite : scala ide must be installed
+	Optional (but recommanded) prerequisite : m2e is installed
+	Eclipse can be set up using the command 
+		"mvn eclipse:clean eclipse:eclipse"
+		then do a refresh on the project.
+		a convenient runconfiguration using m2e is available to do it directly from within eclipse
+		
+	
+	Note that dependencies doesn't use your workspace projects and are resolved using maven repository.
+	
+	
+	You may need to run "mvn install" to get the latest version of your dependencies.  
