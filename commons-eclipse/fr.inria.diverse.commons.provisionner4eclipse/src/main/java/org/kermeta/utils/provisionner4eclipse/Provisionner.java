@@ -23,42 +23,51 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 public class Provisionner {
-	protected List<String> repoToUse = new ArrayList<String>();
-	protected List<String> bundleToInstall = new ArrayList<String>();
-	protected List<Bundle> bundleToStart = new ArrayList<Bundle>();
 	
-	/** provisionner that is able to deal with the definition order, will retry if necessary
-	 * Note: maybe we can extract the core of the algorithm and have a cleaner code ...
-	 * @param monitor
-	 */
-	public void provisionFromPreferences(IProgressMonitor monitor){
+	
+	public IStatus provisionFromPreferences(IProgressMonitor monitor){
 		String repoList = Activator.getDefault().getPreferenceStore().getString(PreferenceConstants.P_REPO_URL_LIST);
 		String bundleList = Activator.getDefault().getPreferenceStore().getString(PreferenceConstants.P_BUNDLE_URI_LIST);
 		Boolean offline = Activator.getDefault().getPreferenceStore().getBoolean(PreferenceConstants.P_MVN_AETHER_OFFLINE);
 		String[] bundleRawURIs = bundleList.split("\n");
 		String[] repoRawURIs = repoList.split("\n");
-		monitor.beginTask("Provisionning OSGI Bundles", bundleRawURIs.length*2 );
-		ArrayList<IStatus> statusChildren = new ArrayList<IStatus>();
-		boolean hasStartError = false;
+		List<String> bundleToInstall = new ArrayList<String>();
 		for (int i = 0; i < bundleRawURIs.length; i++) {
 			String bundleURI = bundleRawURIs[i].trim();
 			if(!bundleURI.startsWith("#") && !bundleURI.isEmpty()){
 				bundleToInstall.add(bundleURI);
 			}
 		}
+		List<String> repoToUse = new ArrayList<String>();
 		for (int i = 0; i < repoRawURIs.length; i++) {
 			String repoUrl = repoRawURIs[i].trim();
 			if(!repoUrl.startsWith("#") && !repoUrl.isEmpty()){
 				repoToUse.add(repoUrl);
 			}
 		}
+		return provision(bundleToInstall, repoToUse, offline, monitor);
+	}
+	
+	
+	
+	/** provisionner that is able to deal with the definition order, will retry if necessary
+	 * Note: maybe we can extract the core of the algorithm and have a cleaner code ...
+	 * @param monitor
+	 */
+	public IStatus provision(List<String> allBundleToInstall, List<String> repoToUse, Boolean offline, IProgressMonitor monitor){
 		
-		
+
+		monitor.beginTask("Provisionning OSGI Bundles", allBundleToInstall.size()*2 );
+		List<String> bundleToInstall = new ArrayList<String>(allBundleToInstall);
+		ArrayList<IStatus> statusChildren = new ArrayList<IStatus>();
+		boolean hasStartError = false;
 		
 		BundleContext context = Activator.getDefault().getBundle().getBundleContext();
 		
 		List<String> bundleLeftToInstall = new ArrayList<String>(bundleToInstall);
 		List<Status> lastErrors = new ArrayList<Status>();
+		
+		List<Bundle> bundleToStart = new ArrayList<Bundle>();
 
 		// install all bundle, take care of the order
 		while(bundleLeftToInstall.size() != 0){
@@ -161,14 +170,24 @@ public class Provisionner {
 			}
 			lastErrors.clear();
 		}
-		
-		String message= hasStartError? "One or more bundle failed to start or install":"All bundles have successfully started";
-		MultiStatus mstatus = new MultiStatus(Activator.PLUGIN_ID, 0, message, null);
-		for (IStatus iStatus : statusChildren) {
-			mstatus.add(iStatus);
-		}
-		Activator.getDefault().getLog().log(mstatus);						
+
 		monitor.done();
+		if(allBundleToInstall.size() > 0){ // no log if no bundle to install and start
+			String message= hasStartError? "One or more bundle failed to start or install":"All bundles have successfully started";
+			MultiStatus mstatus = new MultiStatus(Activator.PLUGIN_ID, 0, message, null);
+			for (IStatus iStatus : statusChildren) {
+				mstatus.add(iStatus);
+			}
+			
+			Activator.getDefault().getLog().log(mstatus);
+			if(hasStartError)
+				return mstatus;
+			else 
+				return Status.OK_STATUS;
+		}
+		else {
+			return Status.OK_STATUS;
+		}
 	}
 	
 	
@@ -176,6 +195,7 @@ public class Provisionner {
 	 * Provision from the preferences 
 	 * the bundles must be in the correct order directly in the preferences
 	 * @param monitor
+	 * @deprecated
 	 */
 	public void provisionFromPreferences_fixedOrder(IProgressMonitor monitor){
 		String bundleList = Activator.getDefault().getPreferenceStore().getString(PreferenceConstants.P_BUNDLE_URI_LIST);

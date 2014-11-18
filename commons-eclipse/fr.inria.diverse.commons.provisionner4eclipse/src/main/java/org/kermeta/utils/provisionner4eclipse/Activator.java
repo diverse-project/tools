@@ -28,7 +28,7 @@ public class Activator extends AbstractUIPlugin {
 	//		"org.ops4j.pax.url.assembly"};
 	public String[] requiredStartedBundleNames = {};
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.kermeta.utils.provisionner.eclipse";
+	public static final String PLUGIN_ID = "fr.inria.diverse.commons.provisionner4eclipse";
 
 	// The shared instance
 	private static Activator plugin;

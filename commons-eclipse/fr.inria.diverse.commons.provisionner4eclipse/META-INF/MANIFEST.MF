@@ -15,5 +15,9 @@ Export-Package: org.kermeta.utils.provisionner4eclipse.preferences
 Import-Package: fr.inria.diverse.commons.aether,
  fr.inria.diverse.commons.eclipse.jface.preference,
  org.eclipse.core.runtime.jobs
-Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.pde.ui;bundle-version="3.8.101",
+ org.eclipse.jdt.core
 Tool: Bnd-1.50.0
