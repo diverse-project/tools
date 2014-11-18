@@ -45,6 +45,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.progress.IProgressConstants;
 import org.kermeta.utils.provisionner4eclipse.DynamicJarsProvisionnerJob;
+import org.kermeta.utils.provisionner4eclipse.DynamicJarsUnprovisionnerJob;
 
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
@@ -74,7 +75,17 @@ public class ProvisionProjectHandler extends AbstractHandler {
 				window.getShell(),
 				"Provisionner for Eclipse",
 				"Provisionning project "+projectName+" into eclipse");*/
-		scheduleExportJob();
+		File jarFolder = new File(exportedProject.getFolder("target/dynamic_provisionner/plugins").getRawLocation().toOSString());
+		
+		DynamicJarsUnprovisionnerJob unprovisionnerJob = new DynamicJarsUnprovisionnerJob("Unprovisionning old jars", jarFolder);
+		unprovisionnerJob.setUser(true);
+		unprovisionnerJob.setProperty(IProgressConstants.ICON_PROPERTY, PDEPluginImages.DESC_FEATURE_OBJ);
+		unprovisionnerJob.addJobChangeListener(new JobChangeAdapter() {
+			public void done(IJobChangeEvent event) {
+				scheduleExportJob();
+			}
+		});
+		unprovisionnerJob.schedule();
 		return null;
 	}
 	
@@ -135,7 +146,7 @@ public class ProvisionProjectHandler extends AbstractHandler {
 		job.addJobChangeListener(new JobChangeAdapter() {
 			public void done(IJobChangeEvent event) {
 				try {
-					exportedProject.getFolder("target").refreshLocal(0, null);
+					exportedProject.getFolder("target").refreshLocal(IResource.DEPTH_INFINITE, null);
 				} catch (CoreException e) {}
 				if (job.hasAntErrors()) {
 					// If there were errors when running the ant scripts, inform the user where the logs can be found.
