@@ -67,7 +67,7 @@
                label="DiverSE Commons">
             <command
                   commandId="fr.inria.diverse.commons.provisionner4eclipse.commands.ProvisionProjectCommand"
-                  icon="icons/plus-16.png"
+                  icon="icons/plugin_obj_run.gif"
                   label="Provision Project in current eclipse"
                   style="push">
                <visibleWhen
@@ -93,7 +93,7 @@
             </command>
             <command
                   commandId="fr.inria.diverse.commons.provisionner4eclipse.commands.UnprovisionProjectCommand"
-                  icon="icons/plus-16.png"
+                  icon="icons/plugin_obj_stop.gif"
                   label="Unprovision Project"
                   style="push">
                <visibleWhen
