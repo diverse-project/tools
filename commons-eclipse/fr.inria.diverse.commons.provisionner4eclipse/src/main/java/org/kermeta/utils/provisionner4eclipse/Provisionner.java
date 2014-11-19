@@ -40,10 +40,12 @@ import fr.inria.diverse.commons.aether.AetherUtil;
 
 public class Provisionner {
 	
+	public final static String DYNAMIC_PROVISIONNER_FOLDER = "target/dynamic_provisionner";
+	public final static String DYNAMIC_JAR_FOLDER = DYNAMIC_PROVISIONNER_FOLDER+"/plugins";
 	
 	public IStatus provisionFromProject(final IProject project, IProgressMonitor monitor){
-		IFolder jarFolder = project.getFolder("target/dynamic_provisionner/plugins");
-		File jarFolderFile = new File(project.getFolder("target/dynamic_provisionner/plugins").getRawLocation().toOSString());
+		IFolder jarFolder = project.getFolder(DYNAMIC_JAR_FOLDER);
+		File jarFolderFile = new File(project.getFolder(DYNAMIC_JAR_FOLDER).getRawLocation().toOSString());
 		
 		IStatus res = new Unprovisionner().unprovision(jarFolderFile, monitor);
 		if(!res.isOK()) return res;
@@ -234,7 +236,7 @@ public class Provisionner {
 		info.allowBinaryCycles = true;
 		info.useWorkspaceCompiledClasses = true;
 
-		IFolder target = exportedProject.getFolder("target/dynamic_provisionner");
+		IFolder target = exportedProject.getFolder(DYNAMIC_PROVISIONNER_FOLDER);
 		info.destinationDirectory = target.getRawLocation().toOSString();
 		info.zipFileName = null;
 		info.items = getExportedItems(exportedProject).toArray();

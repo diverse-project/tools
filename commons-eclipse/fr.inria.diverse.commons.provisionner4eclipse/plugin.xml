@@ -43,8 +43,12 @@
             class="fr.inria.diverse.commons.provisionner4eclipse.handlers.ProvisionProjectHandler"
             commandId="fr.inria.diverse.commons.provisionner4eclipse.commands.ProvisionProjectCommand">
       </handler>
+      <handler
+            class="fr.inria.diverse.commons.provisionner4eclipse.handlers.UnprovisionProjectHandler"
+            commandId="fr.inria.diverse.commons.provisionner4eclipse.commands.UnprovisionProjectCommand">
+      </handler>
    </extension>
-   <extension
+<!--   <extension
          point="org.eclipse.ui.bindings">
       <key
             commandId="fr.inria.diverse.commons.provisionner4eclipse.commands.sampleCommand"
@@ -52,7 +56,7 @@
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+6">
       </key>
-   </extension>
+   </extension>-->
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
@@ -64,7 +68,33 @@
             <command
                   commandId="fr.inria.diverse.commons.provisionner4eclipse.commands.ProvisionProjectCommand"
                   icon="icons/plus-16.png"
-                  label="Provision Project in eclipse"
+                  label="Provision Project in current eclipse"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="selection">
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <and>
+                           <instanceof
+                                 value="org.eclipse.core.resources.IProject">
+                           </instanceof>
+                           <test
+                                 property="org.eclipse.core.resources.projectNature"
+                                 value="org.eclipse.pde.PluginNature">
+                           </test>
+                        </and>
+                     </iterate>
+                  </with>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="fr.inria.diverse.commons.provisionner4eclipse.commands.UnprovisionProjectCommand"
+                  icon="icons/plus-16.png"
+                  label="Unprovision Project"
                   style="push">
                <visibleWhen
                      checkEnabled="false">
