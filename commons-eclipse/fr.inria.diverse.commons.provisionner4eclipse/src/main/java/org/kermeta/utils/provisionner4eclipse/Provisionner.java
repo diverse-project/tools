@@ -10,19 +10,52 @@
 package org.kermeta.utils.provisionner4eclipse;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
-import fr.inria.diverse.commons.aether.AetherUtil;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.pde.core.IModel;
+import org.eclipse.pde.core.plugin.PluginRegistry;
+import org.eclipse.pde.internal.core.exports.FeatureExportInfo;
+import org.eclipse.pde.internal.core.exports.PluginExportOperation;
+import org.eclipse.pde.internal.ui.PDEPluginImages;
+import org.eclipse.pde.internal.ui.PDEUIMessages;
+import org.eclipse.ui.progress.IProgressConstants;
 import org.kermeta.utils.provisionner4eclipse.preferences.PreferenceConstants;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
+import fr.inria.diverse.commons.aether.AetherUtil;
+
 public class Provisionner {
+	
+	
+	public IStatus provisionFromProject(final IProject project, IProgressMonitor monitor){
+		IFolder jarFolder = project.getFolder("target/dynamic_provisionner/plugins");
+		File jarFolderFile = new File(project.getFolder("target/dynamic_provisionner/plugins").getRawLocation().toOSString());
+		
+		IStatus res = new Unprovisionner().unprovision(jarFolderFile, monitor);
+		if(!res.isOK()) return res;
+		
+		res = exportProject(project);
+		try {
+			jarFolder.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+		} catch (CoreException e) {}
+		if(!res.isOK()) return res;
+		
+		return provision(getJarsInFolder(jarFolderFile), new ArrayList<String>(), true, monitor);
+	}
 	
 	
 	public IStatus provisionFromPreferences(IProgressMonitor monitor){
@@ -190,6 +223,89 @@ public class Provisionner {
 		}
 	}
 	
+	
+	protected IStatus exportProject(final IProject exportedProject) {
+		// NOTE: Any changes to the content here must also be copied to generateAntTask() and PluginExportTask
+		final FeatureExportInfo info = new FeatureExportInfo();
+		info.toDirectory = true;
+		info.useJarFormat = true;
+		info.exportSource = false;
+		info.exportSourceBundle = false;
+		info.allowBinaryCycles = true;
+		info.useWorkspaceCompiledClasses = true;
+
+		IFolder target = exportedProject.getFolder("target/dynamic_provisionner");
+		info.destinationDirectory = target.getRawLocation().toOSString();
+		info.zipFileName = null;
+		info.items = getExportedItems(exportedProject).toArray();
+		info.signingInfo = null;
+		info.exportMetadata = false;
+		//info.qualifier = QualifierReplacer.getDateQualifier();
+		info.qualifier = "";
+
+		/*final boolean installAfterExport = fPage.doInstall();
+		if (installAfterExport) {
+			RuntimeInstallJob.modifyInfoForInstall(info);
+		}*/
+
+		// cleaning old folder
+		try {
+			target.refreshLocal(IResource.DEPTH_INFINITE, null);
+			target.delete(true, null);
+		} catch (CoreException e1) {}
+		
+		final PluginExportOperation job = new PluginExportOperation(info, PDEUIMessages.PluginExportJob_name);
+		job.setUser(true);
+		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
+		job.setProperty(IProgressConstants.ICON_PROPERTY, PDEPluginImages.DESC_PLUGIN_OBJ);
+		job.schedule();
+		try {
+			job.join();
+		} catch (InterruptedException e) {
+			return Status.CANCEL_STATUS;
+		}
+		return job.getResult();
+		
+	}
+	
+	protected List<Object> getExportedItems(IProject exportedProject){
+		ArrayList<Object> list = new ArrayList<Object>();
+		list.add(findModelFor(exportedProject));
+		return list;
+	}
+	
+	
+	
+	public List<String> getJarsInFolder(File jarFolder){
+		ArrayList<String> bundleToInstall = new ArrayList<String>();
+		if(jarFolder.isFile()){
+			// use current file as jar
+			bundleToInstall.add(jarFolder.toURI().toASCIIString());
+		}
+		File[] jars = jarFolder.listFiles(new FileFilter(){
+			@Override
+			public boolean accept(File pathname) {
+				return pathname.isFile() && pathname.getName().endsWith(".jar");
+			}
+		});
+		for (int i = 0; i < jars.length; i++) {
+			bundleToInstall.add(jars[i].toURI().toASCIIString());
+		}
+		return bundleToInstall;
+	}
+	protected IModel findModelFor(IAdaptable object) {
+		if (object instanceof IJavaProject)
+			object = ((IJavaProject) object).getProject();
+		if (object instanceof IProject)
+			return PluginRegistry.findModel((IProject) object);
+		/*if (object instanceof PersistablePluginObject) {
+			IPluginModelBase model = PluginRegistry.findModel(((PersistablePluginObject) object).getPluginID());
+			if (model != null && model.getUnderlyingResource() != null) {
+				return model;
+			}
+		}*/
+		return null;
+	}
 	
 	/**
 	 * Provision from the preferences 

@@ -31,6 +31,11 @@
             id="fr.inria.diverse.commons.provisionner4eclipse.commands.ProvisionProjectCommand"
             name="ProvisionProject Command">
       </command>
+      <command
+            categoryId="fr.inria.diverse.commons.provisionner4eclipse.commands.category"
+            id="fr.inria.diverse.commons.provisionner4eclipse.commands.UnprovisionProjectCommand"
+            name="UnprovisionProject Command">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
