@@ -9,7 +9,6 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<packaging>eclipse-plugin</packaging>
-	<name>utils.helpers.eclipse :: helpers for eclipse</name>
 	<artifactId>fr.inria.diverse.commons.eclipse</artifactId>
 
     <parent>

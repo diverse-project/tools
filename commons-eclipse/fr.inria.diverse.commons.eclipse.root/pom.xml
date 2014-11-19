@@ -15,9 +15,9 @@
         
         
         <module>../fr.inria.diverse.commons.eclipse</module>
-        <module>../fr.inria.diverse.commons.provisionner4eclipse</module>
         <module>../fr.inria.diverse.commons.eclipse.jface</module>
         <module>../fr.inria.diverse.commons.aether</module>
+        <module>../fr.inria.diverse.commons.provisionner4eclipse</module>
 
         <!-- feature and update site -->
         <module>fr.inria.diverse.commons.eclipse.feature</module>
@@ -27,7 +27,7 @@
     </modules>
 
     <properties>
-        <tycho-version>0.18.1</tycho-version>
+        <tycho-version>0.21.0</tycho-version>
         <project.build.sourceEncoding>UTF8</project.build.sourceEncoding>
     </properties>
 
