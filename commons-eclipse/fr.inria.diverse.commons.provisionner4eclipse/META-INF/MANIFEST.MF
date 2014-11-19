@@ -18,6 +18,6 @@ Import-Package: fr.inria.diverse.commons.aether,
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
- org.eclipse.pde.ui;bundle-version="3.8.101",
+ org.eclipse.pde.ui,
  org.eclipse.jdt.core
 Tool: Bnd-1.50.0
