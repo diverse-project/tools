@@ -1,20 +1,18 @@
 Manifest-Version: 1
-Bnd-LastModified: 1374669286657
-Build-Jdk: 1.6.0_43
-Built-By: dvojtise
 Bundle-ManifestVersion: 2
 Bundle-Name: fr.inria.diverse.commons.aether
 Bundle-SymbolicName: fr.inria.diverse.commons.aether;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Created-By: Apache Maven Bundle Plugin
+Bundle-ActivationPolicy: lazy
 Export-Package: fr.inria.diverse.commons.aether
 Import-Package: fr.inria.diverse.commons.messagingsystem.api,
  fr.inria.diverse.commons.messagingsystem.api.impl,
  org.slf4j;version="[1.6,2)"
 Require-Bundle: fr.inria.diverse.commons.eclipse
-Tool: Bnd-1.43.0
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ClassPath: libs/aether-api-1.13.1.jar,
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7,
+ JavaSE-1.6
+Bundle-ClassPath: .,
+ libs/aether-api-1.13.1.jar,
  libs/aether-connector-asynchttpclient-1.13.1.jar,
  libs/aether-connector-file-1.13.1.jar,
  libs/aether-connector-wagon-1.13.1.jar,
