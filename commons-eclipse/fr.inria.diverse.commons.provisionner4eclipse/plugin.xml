@@ -79,13 +79,13 @@
                      </count>
                      <iterate>
                         <and>
-                           <instanceof
-                                 value="org.eclipse.core.resources.IProject">
-                           </instanceof>
-                           <test
-                                 property="org.eclipse.core.resources.projectNature"
-                                 value="org.eclipse.pde.PluginNature">
-                           </test>
+                        	<adapt
+				                  type="org.eclipse.core.resources.IProject">
+				               <test
+				                     property="org.eclipse.core.resources.projectNature "
+				                     value="org.eclipse.pde.PluginNature">
+				               </test>
+				            </adapt>
                         </and>
                      </iterate>
                   </with>
@@ -105,13 +105,13 @@
                      </count>
                      <iterate>
                         <and>
-                           <instanceof
-                                 value="org.eclipse.core.resources.IProject">
-                           </instanceof>
-                           <test
-                                 property="org.eclipse.core.resources.projectNature"
-                                 value="org.eclipse.pde.PluginNature">
-                           </test>
+                           <adapt
+				                  type="org.eclipse.core.resources.IProject">
+				               <test
+				                     property="org.eclipse.core.resources.projectNature "
+				                     value="org.eclipse.pde.PluginNature">
+				               </test>
+				            </adapt>
                         </and>
                      </iterate>
                   </with>
