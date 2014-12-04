@@ -12,6 +12,7 @@ package org.kermeta.utils.provisionner4eclipse;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.eclipse.core.resources.IFolder;
@@ -25,7 +26,9 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.osgi.service.resolver.BundleDescription;
 import org.eclipse.pde.core.IModel;
+import org.eclipse.pde.core.plugin.IPluginModelBase;
 import org.eclipse.pde.core.plugin.PluginRegistry;
 import org.eclipse.pde.internal.core.exports.FeatureExportInfo;
 import org.eclipse.pde.internal.core.exports.PluginExportOperation;
@@ -43,14 +46,34 @@ public class Provisionner {
 	public final static String DYNAMIC_PROVISIONNER_FOLDER = "target/dynamic_provisionner";
 	public final static String DYNAMIC_JAR_FOLDER = DYNAMIC_PROVISIONNER_FOLDER+"/plugins";
 	
+	/**
+	 * Unprovision if required 
+	 * then export and provision the given project
+	 * @param project
+	 * @param monitor
+	 * @return
+	 */
 	public IStatus provisionFromProject(final IProject project, IProgressMonitor monitor){
+		return provisionFromProject(project, false,  monitor);
+	}
+	
+	/**
+	 * 
+	 * Unprovision if required 
+	 * then export and provision the given project and all its dependencies defined in the current workspace
+	 * @param project
+	 * @param provisionDependecies
+	 * @param monitor
+	 * @return
+	 */
+	public IStatus provisionFromProject(final IProject project, boolean provisionDependecies, IProgressMonitor monitor){
 		IFolder jarFolder = project.getFolder(DYNAMIC_JAR_FOLDER);
 		File jarFolderFile = new File(project.getFolder(DYNAMIC_JAR_FOLDER).getRawLocation().toOSString());
 		
 		IStatus res = new Unprovisionner().unprovision(jarFolderFile, monitor);
 		if(!res.isOK()) return res;
 		
-		res = exportProject(project);
+		res = exportProject(project, provisionDependecies);
 		try {
 			jarFolder.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 		} catch (CoreException e) {}
@@ -226,7 +249,7 @@ public class Provisionner {
 	}
 	
 	
-	protected IStatus exportProject(final IProject exportedProject) {
+	protected IStatus exportProject(final IProject exportedProject, boolean exportDependencies) {
 		// NOTE: Any changes to the content here must also be copied to generateAntTask() and PluginExportTask
 		final FeatureExportInfo info = new FeatureExportInfo();
 		info.toDirectory = true;
@@ -238,8 +261,8 @@ public class Provisionner {
 
 		IFolder target = exportedProject.getFolder(DYNAMIC_PROVISIONNER_FOLDER);
 		info.destinationDirectory = target.getRawLocation().toOSString();
-		info.zipFileName = null;
-		info.items = getExportedItems(exportedProject).toArray();
+		info.zipFileName = null;		
+		info.items = getExportedItems(exportedProject, exportDependencies).toArray();
 		info.signingInfo = null;
 		info.exportMetadata = false;
 		//info.qualifier = QualifierReplacer.getDateQualifier();
@@ -270,10 +293,30 @@ public class Provisionner {
 		
 	}
 	
-	protected List<Object> getExportedItems(IProject exportedProject){
-		ArrayList<Object> list = new ArrayList<Object>();
-		list.add(findModelFor(exportedProject));
+	protected List<Object> getExportedItems(IProject exportedProject, boolean exportDependencies){
+		HashSet<Object> set = new HashSet<Object>();
+		getExportedItems(exportedProject, set, exportDependencies);
+		List<Object> list = new ArrayList<Object>();
+		list.addAll(set);
 		return list;
+	}
+	
+	protected void getExportedItems(IProject exportedProject, HashSet<Object> set, boolean exportDependencies){		
+		IModel projectModel = findModelFor(exportedProject);
+		if(set.contains(projectModel)) return; // ensure exit in case of circular dependency
+		set.add(projectModel);
+		if(exportDependencies && projectModel instanceof IPluginModelBase){
+			IPluginModelBase pluginModel = (IPluginModelBase)projectModel;
+			BundleDescription[] requiredDescriptions = pluginModel.getBundleDescription().getResolvedRequires();
+			for (BundleDescription bundleDescription : requiredDescriptions) {
+				IPluginModelBase dependencyModel = PluginRegistry.findModel(bundleDescription.getSymbolicName());
+				IResource depRes= dependencyModel.getUnderlyingResource();
+				if(depRes!=null){
+					// recursively add indirect dependencies
+					getExportedItems(depRes.getProject(), set, exportDependencies);
+				}
+			}
+		}
 	}
 	
 	

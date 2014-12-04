@@ -33,6 +33,11 @@
       </command>
       <command
             categoryId="fr.inria.diverse.commons.provisionner4eclipse.commands.category"
+            id="fr.inria.diverse.commons.provisionner4eclipse.commands.ProvisionProjectsCommand"
+            name="ProvisionProjects Command">
+      </command>
+      <command
+            categoryId="fr.inria.diverse.commons.provisionner4eclipse.commands.category"
             id="fr.inria.diverse.commons.provisionner4eclipse.commands.UnprovisionProjectCommand"
             name="UnprovisionProject Command">
       </command>
@@ -42,6 +47,10 @@
       <handler
             class="fr.inria.diverse.commons.provisionner4eclipse.handlers.ProvisionProjectHandler"
             commandId="fr.inria.diverse.commons.provisionner4eclipse.commands.ProvisionProjectCommand">
+      </handler>
+      <handler
+            class="fr.inria.diverse.commons.provisionner4eclipse.handlers.ProvisionProjectsHandler"
+            commandId="fr.inria.diverse.commons.provisionner4eclipse.commands.ProvisionProjectsCommand">
       </handler>
       <handler
             class="fr.inria.diverse.commons.provisionner4eclipse.handlers.UnprovisionProjectHandler"
@@ -69,6 +78,32 @@
                   commandId="fr.inria.diverse.commons.provisionner4eclipse.commands.ProvisionProjectCommand"
                   icon="icons/plugin_obj_run.gif"
                   label="Provision Project in current eclipse"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="selection">
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <and>
+                        	<adapt
+				                  type="org.eclipse.core.resources.IProject">
+				               <test
+				                     property="org.eclipse.core.resources.projectNature "
+				                     value="org.eclipse.pde.PluginNature">
+				               </test>
+				            </adapt>
+                        </and>
+                     </iterate>
+                  </with>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="fr.inria.diverse.commons.provisionner4eclipse.commands.ProvisionProjectsCommand"
+                  icon="icons/plugin_obj_run.gif"
+                  label="Provision Project (+ dependencies) in current eclipse"
                   style="push">
                <visibleWhen
                      checkEnabled="false">
