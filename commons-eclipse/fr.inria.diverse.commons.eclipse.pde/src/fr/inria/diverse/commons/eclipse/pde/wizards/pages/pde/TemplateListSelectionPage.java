@@ -104,9 +104,6 @@ public class TemplateListSelectionPage extends WizardListSelectionPage implement
 		gd.horizontalSpan = span;
 		fUseTemplate.setLayoutData(gd);
 		
-		// no template by default
-		fUseTemplate.setSelection(false);
-		
 		fUseTemplate.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				wizardSelectionViewer.getControl().setEnabled(fUseTemplate.getSelection());
@@ -122,6 +119,10 @@ public class TemplateListSelectionPage extends WizardListSelectionPage implement
 		wizardSelectionViewer.addFilter(new WizardFilter());
 		if (getInitialTemplateId() != null)
 			selectInitialTemplate();
+		
+		// no template by default
+		fUseTemplate.setSelection(false);
+		
 		wizardSelectionViewer.getControl().setEnabled(fUseTemplate.getSelection());
 		setDescriptionEnabled(fUseTemplate.getSelection());
 	}
@@ -188,8 +189,9 @@ public class TemplateListSelectionPage extends WizardListSelectionPage implement
 			//fContentPage.updateData();
 			//fUseTemplate.setSelection(true);
 			fUseTemplate.setEnabled(true);
-			wizardSelectionViewer.getControl().setEnabled(false);
-
+			//wizardSelectionViewer.getControl().setEnabled(false);
+			
+			
 			wizardSelectionViewer.refresh();
 		}
 		super.setVisible(visible);
