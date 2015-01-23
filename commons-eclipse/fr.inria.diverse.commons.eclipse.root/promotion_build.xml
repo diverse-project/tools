@@ -7,7 +7,7 @@
 	<property name="updatesite.repository" location="${env.WORKSPACE}/commons-eclipse/fr.inria.diverse.commons.eclipse.root/p2updatesite/target/repository/"/>
 	<property name="deploy.server" value="www.irisa.fr"/>
 	<property name="deploy.user" value="web-diverse"/>
-	<property name="deploy.path" value="/home/web/apache/sites/kermeta.org/htdocs/diverse-commons"/>
+	<property name="deploy.path" value="/home/web/apache/sites/diverse.irisa.fr/htdocs/diverse-commons"/>
 	
 
 	<tstamp>
