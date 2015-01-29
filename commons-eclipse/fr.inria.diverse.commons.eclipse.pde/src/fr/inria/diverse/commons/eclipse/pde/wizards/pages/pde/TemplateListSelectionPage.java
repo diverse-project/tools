@@ -128,10 +128,13 @@ public class TemplateListSelectionPage extends WizardListSelectionPage implement
 	}
 
 	private void selectInitialTemplate() {
+		selectTemplate(getInitialTemplateId());
+	}
+	public void selectTemplate(String templateID) {
 		Object[] children = wizardElements.getChildren();
 		for (int i = 0; i < children.length; i++) {
 			WizardElement welement = (WizardElement) children[i];
-			if (welement.getID().equals(getInitialTemplateId())) {
+			if (welement.getID().equals(templateID)) {
 				wizardSelectionViewer.setSelection(new StructuredSelection(welement), true);
 				setSelectedNode(createWizardNode(welement));
 				setDescriptionText(welement.getDescription());
@@ -211,6 +214,15 @@ public class TemplateListSelectionPage extends WizardListSelectionPage implement
 			}
 		}
 		return false;
+	}
+	
+	public void setUseTemplate(boolean useTemplate){
+		fUseTemplate.setSelection(useTemplate);
+		wizardSelectionViewer.getControl().setEnabled(useTemplate);
+		if (!useTemplate)
+			setDescription(""); //$NON-NLS-1$
+		setDescriptionEnabled(useTemplate);
+		getContainer().updateButtons();
 	}
 }
 

@@ -36,6 +36,8 @@ public class WizardElement extends NamedElement implements IPluginContribution {
 	
 	public WizardElement(IConfigurationElement config) {
 		super(config.getAttribute(ATT_NAME));
+		id = config.getAttribute(ATT_ID);
+		className = config.getAttribute(ATT_CLASS);
 		this.configurationElement = config;
 	}
 

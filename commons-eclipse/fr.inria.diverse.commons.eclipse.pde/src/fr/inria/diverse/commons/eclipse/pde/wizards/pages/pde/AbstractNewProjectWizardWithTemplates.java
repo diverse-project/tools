@@ -35,6 +35,7 @@ public abstract class AbstractNewProjectWizardWithTemplates extends Wizard{
 		if (name == null || id == null || className == null)
 			return null;
 		WizardElement element = new WizardElement(config);
+		element.id = id;
 		String imageName = config.getAttribute(WizardElement.ATT_ICON);
 		if (imageName != null) {
 			String pluginID = config.getNamespaceIdentifier();
