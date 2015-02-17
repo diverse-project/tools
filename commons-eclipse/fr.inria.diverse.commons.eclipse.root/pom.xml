@@ -18,6 +18,8 @@
         <module>../fr.inria.diverse.commons.eclipse.pde</module>
         <module>../fr.inria.diverse.commons.eclipse.jface</module>
         <module>../fr.inria.diverse.commons.aether</module>
+        <module>../fr.inria.diverse.commons.asm</module>
+        <module>../fr.inria.diverse.commons.asm.tests</module>
         <module>../fr.inria.diverse.commons.provisionner4eclipse</module>
 
         <!-- feature and update site -->
