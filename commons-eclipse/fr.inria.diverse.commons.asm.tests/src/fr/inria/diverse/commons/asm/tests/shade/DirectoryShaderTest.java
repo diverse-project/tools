@@ -24,6 +24,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,6 +36,7 @@ import junit.framework.TestCase;
 import fr.inria.diverse.commons.asm.shade.DirectoryShader;
 import fr.inria.diverse.commons.asm.shade.ShadeRequest;
 import fr.inria.diverse.commons.asm.shade.filter.Filter;
+import fr.inria.diverse.commons.asm.shade.filter.SimpleFilter;
 import fr.inria.diverse.commons.asm.shade.relocation.Relocator;
 import fr.inria.diverse.commons.asm.shade.relocation.SimpleRelocator;
 
@@ -88,20 +90,29 @@ public class DirectoryShaderTest
         assertEquals( "foo.bar/baz", c.getDeclaredField( "CONSTANT" ).get( o ) );
     }
 */
-    public void testShaderWithCustomShadedPattern()
+    public void testShaderWithCustomShadedPatternWithExclude()
         throws Exception
     {
         shaderWithPattern( "org/gemoc/sigpml/extended", new File( "target/gemoc_shaded_extended_with_excludes" ), EXCLUDES );
     }
 
-    public void testShaderWithoutExcludesShouldRemoveReferencesOfOriginalPattern()
+    public void testShaderWithCustomShadedPattern()
         throws Exception
     {
         // FIXME: shaded jar should not include references to org/codehaus/* (empty dirs) or org.codehaus.* META-INF
         // files.
-        shaderWithPattern( "org/gemoc/sigpml/extended", new File( "target/gemoc_shaded_extended_without_excludes" ),
+        shaderWithPattern( "org/gemoc/sigpml/extended", new File( "target/gemoc_shaded_extended" ),
                            new String[] {} );
     }
+    
+    public void testShaderWithCustomShadedPatternWithExcludeFilter()
+            throws Exception
+        {
+            // FIXME: shaded jar should not include references to org/codehaus/* (empty dirs) or org.codehaus.* META-INF
+            // files.
+    	shaderWithPatternAndExcludeFilter( "org/gemoc/sigpml/extended", "org/gemoc/sigpml/util/*", new File( "target/gemoc_shaded_extended_with_excludefilter" ),
+                               new String[] {} );
+        }
 
    
 
@@ -135,6 +146,39 @@ public class DirectoryShaderTest
 
         s.shade( shadeRequest );
     }
+    
+    private void shaderWithPatternAndExcludeFilter( String shadedPattern, String excludeFilter,  File outputFolder, String[] excludes )
+            throws Exception
+        {
+        	DirectoryShader s = newShader();
+
+            Set<File> set = new LinkedHashSet<File>();
+
+            set.add( new File( "test/resources/src_1" ) );
+
+            //set.add( new File( "src/test/jars/plexus-utils-1.4.1.jar" ) );
+
+            List<Relocator> relocators = new ArrayList<Relocator>();
+
+            relocators.add( new SimpleRelocator( "org/gemoc/sigpml", shadedPattern, null, Arrays.asList( excludes ) ) );
+
+           // List<ResourceTransformer> resourceTransformers = new ArrayList<ResourceTransformer>();
+
+            //resourceTransformers.add( new ComponentsXmlResourceTransformer() );
+
+            List<Filter> filters = new ArrayList<Filter>();
+            
+            filters.add( new SimpleFilter(set, Collections.<String> emptySet(), Collections.singleton( excludeFilter )));
+
+            ShadeRequest shadeRequest = new ShadeRequest();
+            shadeRequest.setInputFolders( set );
+            shadeRequest.setOutputFolder( outputFolder );
+            shadeRequest.setFilters( filters );
+            shadeRequest.setRelocators( relocators );
+           // shadeRequest.setResourceTransformers( resourceTransformers );
+
+            s.shade( shadeRequest );
+        }
 
     private static DirectoryShader newShader()
     {
