@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ASM
+Bundle-SymbolicName: fr.inria.diverse.commons.asm
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: fr.inria.diverse.commons.asm.Activator
+Require-Bundle: org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: lib/plexus-utils.jar,
+ .,
+ lib/asm-commons.jar,
+ lib/asm.jar
+Export-Package: fr.inria.diverse.commons.asm,
+ fr.inria.diverse.commons.asm.shade,
+ fr.inria.diverse.commons.asm.shade.filter,
+ fr.inria.diverse.commons.asm.shade.relocation
