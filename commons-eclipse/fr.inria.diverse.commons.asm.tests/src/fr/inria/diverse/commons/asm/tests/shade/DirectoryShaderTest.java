@@ -20,6 +20,7 @@ package fr.inria.diverse.commons.asm.tests.shade;
  */
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.codehaus.plexus.util.FileUtils;
 
 import junit.framework.TestCase;
 
@@ -59,6 +62,7 @@ public class DirectoryShaderTest
         assertFalse(new File( "target/gemoc_shaded_default_with_excludes/hidden/org/gemoc/sigpml/impl" ).exists());
         assertTrue(new File( "target/gemoc_shaded_default_with_excludes/org/gemoc/sigpml/impl" ).exists());
         // TODO check that all ref to org/gemoc/sigpml/impl are correct in the files
+        assertTrue(FileUtils.fileRead("target/gemoc_shaded_default_with_excludes/hidden/org/gemoc/sigpml/SigpmlFactory.java").contains(" org.gemoc.sigpml.impl.SigpmlFactoryImpl"));
     }
 
  /*   public void testShaderWithStaticInitializedClass()
@@ -103,7 +107,8 @@ public class DirectoryShaderTest
         assertTrue(new File( "target/gemoc_shaded_extended_with_excludes/org/gemoc/sigpml/extended/util" ).exists());
         assertFalse(new File( "target/gemoc_shaded_extended_with_excludes/org/gemoc/sigpml/extended/impl" ).exists());
         assertTrue(new File( "target/gemoc_shaded_extended_with_excludes/org/gemoc/sigpml/impl" ).exists());
-        // TODO check that all ref to org/gemoc/sigpml/impl are correct in the files
+        // check that all ref to org/gemoc/sigpml/impl are correct in the files
+        assertTrue(FileUtils.fileRead("target/gemoc_shaded_extended_with_excludes/org/gemoc/sigpml/extended/SigpmlFactory.java").contains(" org.gemoc.sigpml.impl.SigpmlFactoryImpl"));
     }
 
     public void testShaderWithCustomShadedPattern()
@@ -117,6 +122,7 @@ public class DirectoryShaderTest
         assertTrue(new File( "target/gemoc_shaded_extended/org/gemoc/sigpml/extended" ).exists());
         assertTrue(new File( "target/gemoc_shaded_extended/org/gemoc/sigpml/extended/util" ).exists());
         assertTrue(new File( "target/gemoc_shaded_extended/org/gemoc/sigpml/extended/impl" ).exists());
+        assertTrue(FileUtils.fileRead("target/gemoc_shaded_extended_with_excludes/org/gemoc/sigpml/extended/SigpmlFactory.java").contains(" org.gemoc.sigpml.extended.impl.SigpmlFactoryImpl"));
     }
     
     public void testShaderWithCustomShadedPatternWithExcludeFilter()
@@ -129,6 +135,7 @@ public class DirectoryShaderTest
         assertTrue(new File( "target/gemoc_shaded_extended_with_excludefilter/org/gemoc/sigpml/extended" ).exists());
         assertFalse(new File( "target/gemoc_shaded_extended_with_excludefilter/org/gemoc/sigpml/extended/util" ).exists());
         assertTrue(new File( "target/gemoc_shaded_extended_with_excludefilter/org/gemoc/sigpml/extended/impl" ).exists());
+        assertTrue(FileUtils.fileRead("target/gemoc_shaded_extended_with_excludefilter/org/gemoc/sigpml/extended/SigpmlFactory.java").contains(" org.gemoc.sigpml.extended.impl.SigpmlFactoryImpl"));
     }
 
    
@@ -204,6 +211,12 @@ public class DirectoryShaderTest
         //s.enableLogging( new ConsoleLogger( Logger.LEVEL_INFO, "TEST" ) );
 
         return s;
+    }
+    
+    
+    private boolean contains(File file, String searchedString) throws IOException{
+    	FileUtils.fileRead(file).contains(searchedString);
+    	return FileUtils.fileRead(file).contains(searchedString);
     }
 
 }
