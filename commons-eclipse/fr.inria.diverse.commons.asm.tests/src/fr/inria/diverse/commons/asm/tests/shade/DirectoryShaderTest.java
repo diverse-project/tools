@@ -50,10 +50,15 @@ public class DirectoryShaderTest
     private static final String[] EXCLUDES = new String[] { "org/gemoc/sigpml/util/SigpmlSwitch",
         "org/gemoc/sigpml/impl.*" };
 
-    public void testShaderWithDefaultShadedPattern()
+    public void testShaderWithDefaultShadedPatternWithExclude()
         throws Exception
     {
-        shaderWithPattern( null, new File( "target/gemoc_shaded_default" ), EXCLUDES );
+        shaderWithPattern( null, new File( "target/gemoc_shaded_default_with_excludes" ), EXCLUDES );
+        assertTrue(new File( "target/gemoc_shaded_default_with_excludes/hidden/org/gemoc/sigpml" ).exists());
+        assertTrue(new File( "target/gemoc_shaded_default_with_excludes/hidden/org/gemoc/sigpml/util" ).exists());
+        assertFalse(new File( "target/gemoc_shaded_default_with_excludes/hidden/org/gemoc/sigpml/impl" ).exists());
+        assertTrue(new File( "target/gemoc_shaded_default_with_excludes/org/gemoc/sigpml/impl" ).exists());
+        // TODO check that all ref to org/gemoc/sigpml/impl are correct in the files
     }
 
  /*   public void testShaderWithStaticInitializedClass()
@@ -94,6 +99,11 @@ public class DirectoryShaderTest
         throws Exception
     {
         shaderWithPattern( "org/gemoc/sigpml/extended", new File( "target/gemoc_shaded_extended_with_excludes" ), EXCLUDES );
+        assertTrue(new File( "target/gemoc_shaded_extended_with_excludes/org/gemoc/sigpml/extended" ).exists());
+        assertTrue(new File( "target/gemoc_shaded_extended_with_excludes/org/gemoc/sigpml/extended/util" ).exists());
+        assertFalse(new File( "target/gemoc_shaded_extended_with_excludes/org/gemoc/sigpml/extended/impl" ).exists());
+        assertTrue(new File( "target/gemoc_shaded_extended_with_excludes/org/gemoc/sigpml/impl" ).exists());
+        // TODO check that all ref to org/gemoc/sigpml/impl are correct in the files
     }
 
     public void testShaderWithCustomShadedPattern()
@@ -103,16 +113,23 @@ public class DirectoryShaderTest
         // files.
         shaderWithPattern( "org/gemoc/sigpml/extended", new File( "target/gemoc_shaded_extended" ),
                            new String[] {} );
+
+        assertTrue(new File( "target/gemoc_shaded_extended/org/gemoc/sigpml/extended" ).exists());
+        assertTrue(new File( "target/gemoc_shaded_extended/org/gemoc/sigpml/extended/util" ).exists());
+        assertTrue(new File( "target/gemoc_shaded_extended/org/gemoc/sigpml/extended/impl" ).exists());
     }
     
     public void testShaderWithCustomShadedPatternWithExcludeFilter()
-            throws Exception
-        {
+            throws Exception {
             // FIXME: shaded jar should not include references to org/codehaus/* (empty dirs) or org.codehaus.* META-INF
             // files.
     	shaderWithPatternAndExcludeFilter( "org/gemoc/sigpml/extended", "org/gemoc/sigpml/util/*", new File( "target/gemoc_shaded_extended_with_excludefilter" ),
                                new String[] {} );
-        }
+
+        assertTrue(new File( "target/gemoc_shaded_extended_with_excludefilter/org/gemoc/sigpml/extended" ).exists());
+        assertFalse(new File( "target/gemoc_shaded_extended_with_excludefilter/org/gemoc/sigpml/extended/util" ).exists());
+        assertTrue(new File( "target/gemoc_shaded_extended_with_excludefilter/org/gemoc/sigpml/extended/impl" ).exists());
+    }
 
    
 
