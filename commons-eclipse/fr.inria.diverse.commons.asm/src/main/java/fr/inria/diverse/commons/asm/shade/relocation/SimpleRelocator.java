@@ -54,7 +54,7 @@ public class SimpleRelocator
     public SimpleRelocator( String patt, String shadedPattern, List<String> includes, List<String> excludes )
     {
         this( patt, shadedPattern, includes, excludes, false );
-        uniquePattern = "__"+ this.hashCode()+"@@"+shadedPattern +"@@"+ this.hashCode()+"__";
+        uniquePattern = "__"+ this.hashCode()+"@@"+ this.hashCode()+"__";
     }
 
     public SimpleRelocator( String patt, String shadedPattern, List<String> includes, List<String> excludes,
