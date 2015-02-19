@@ -114,8 +114,12 @@ public class DirectoryShader {
 		String sourceContent = IOUtil.toString(new InputStreamReader(is,
 				"UTF-8"));
 
+		
 		for (Relocator relocator : relocators) {
-			sourceContent = relocator.applyToSourceContent(sourceContent);
+			sourceContent = relocator.preApplyToSourceContent(sourceContent);
+		}
+		for (Relocator relocator : relocators) {
+			sourceContent = relocator.finalizeApplyToSourceContent(sourceContent);
 		}
 		FileOutputStream os = new FileOutputStream(
 				outputFolder.getCanonicalPath() + '/' + name);

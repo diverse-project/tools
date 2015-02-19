@@ -122,7 +122,47 @@ public class DirectoryShaderTest
         assertTrue(new File( "target/gemoc_shaded_extended/org/gemoc/sigpml/extended" ).exists());
         assertTrue(new File( "target/gemoc_shaded_extended/org/gemoc/sigpml/extended/util" ).exists());
         assertTrue(new File( "target/gemoc_shaded_extended/org/gemoc/sigpml/extended/impl" ).exists());
-        assertTrue(FileUtils.fileRead("target/gemoc_shaded_extended_with_excludes/org/gemoc/sigpml/extended/SigpmlFactory.java").contains(" org.gemoc.sigpml.extended.impl.SigpmlFactoryImpl"));
+        assertTrue(FileUtils.fileRead("target/gemoc_shaded_extended/org/gemoc/sigpml/extended/SigpmlFactory.java").contains(" org.gemoc.sigpml.extended.impl.SigpmlFactoryImpl"));
+    }
+    
+    public void testShaderWithMultipleIncludedCustomShadedPatterns()
+            throws Exception {
+        
+        
+        String outputFolderName = "gemoc_shaded_multiple_included";
+        
+        DirectoryShader s = newShader();
+
+        Set<File> set = new LinkedHashSet<File>();
+
+        set.add( new File( "test/resources/src_1" ) );
+
+        //set.add( new File( "src/test/jars/plexus-utils-1.4.1.jar" ) );
+
+        List<Relocator> relocators = new ArrayList<Relocator>();
+        
+        relocators.add( new SimpleRelocator( "org/gemoc/sigpml/util", "org/gemoc/sigpml/new_util", null, Arrays.asList( new String[] {} ) ) );
+        relocators.add( new SimpleRelocator( "org/gemoc/sigpml", "org/gemoc/sigpml/extended", null, Arrays.asList( new String[] {} ) ) );
+        
+       // List<ResourceTransformer> resourceTransformers = new ArrayList<ResourceTransformer>();
+
+        //resourceTransformers.add( new ComponentsXmlResourceTransformer() );
+
+        List<Filter> filters = new ArrayList<Filter>();
+
+        ShadeRequest shadeRequest = new ShadeRequest();
+        shadeRequest.setInputFolders( set );
+        shadeRequest.setOutputFolder( new File("target/"+outputFolderName) );
+        shadeRequest.setFilters( filters );
+        shadeRequest.setRelocators( relocators );
+       // shadeRequest.setResourceTransformers( resourceTransformers );
+
+        s.shade( shadeRequest );
+
+        assertTrue(new File( "target/"+outputFolderName+"/org/gemoc/sigpml/extended" ).exists());
+        assertTrue(new File( "target/"+outputFolderName+"/org/gemoc/sigpml/new_util" ).exists());
+        assertTrue(new File( "target/"+outputFolderName+"/org/gemoc/sigpml/extended/impl" ).exists());
+        assertTrue(FileUtils.fileRead("target/"+outputFolderName+"/org/gemoc/sigpml/extended/SigpmlFactory.java").contains(" org.gemoc.sigpml.extended.impl.SigpmlFactoryImpl"));
     }
     
     public void testShaderWithCustomShadedPatternWithExcludeFilter()

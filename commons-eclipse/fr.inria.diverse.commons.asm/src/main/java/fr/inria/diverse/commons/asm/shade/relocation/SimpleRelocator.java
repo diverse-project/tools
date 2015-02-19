@@ -42,6 +42,8 @@ public class SimpleRelocator
     private final String shadedPattern;
 
     private final String shadedPathPattern;
+    
+    private  String uniquePattern;
 
     private final Set<String> includes;
 
@@ -52,6 +54,7 @@ public class SimpleRelocator
     public SimpleRelocator( String patt, String shadedPattern, List<String> includes, List<String> excludes )
     {
         this( patt, shadedPattern, includes, excludes, false );
+        uniquePattern = "__"+ this.hashCode()+"@@"+shadedPattern +"@@"+ this.hashCode()+"__";
     }
 
     public SimpleRelocator( String patt, String shadedPattern, List<String> includes, List<String> excludes,
@@ -197,7 +200,7 @@ public class SimpleRelocator
         return clazz.replaceFirst( pattern, shadedPattern );
     }
 
-    public String applyToSourceContent( String sourceContent )
+    public String preApplyToSourceContent( String sourceContent )
     {
         if ( rawString )
         {
@@ -205,7 +208,18 @@ public class SimpleRelocator
         }
         else
         {
-            return sourceContent.replaceAll( "\\b" + pattern, shadedPattern );
+            return sourceContent.replaceAll( "\\b" + pattern, uniquePattern );
+        }
+    }
+    public String finalizeApplyToSourceContent( String sourceContent )
+    {
+        if ( rawString )
+        {
+            return sourceContent;
+        }
+        else
+        {
+            return sourceContent.replaceAll( "\\b" + uniquePattern, shadedPattern );
         }
     }
 }
