@@ -26,6 +26,7 @@ import fr.inria.diverse.commons.asm.shade.filter.Filter;
 import fr.inria.diverse.commons.asm.shade.relocation.Relocator;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -43,10 +44,20 @@ public class ShadeRequest
     private List<Filter> filters;
 
     private List<Relocator> relocators;
+    
+    private boolean mustSortRelocators = true;
 
    // private List<ResourceTransformer> resourceTransformers;
 
-    private boolean shadeSourcesContent;
+    public boolean isMustSortRelocators() {
+		return mustSortRelocators;
+	}
+
+	public void setMustSortRelocators(boolean mustSortRelocators) {
+		this.mustSortRelocators = mustSortRelocators;
+	}
+
+	private boolean shadeSourcesContent;
 
     public Set<File> getInputFolders()
     {
@@ -93,6 +104,14 @@ public class ShadeRequest
         this.filters = filters;
     }
 
+    /**
+     * try to reorder the relocators in a way that even if their pattern are included in one another, 
+     *  only the stronger pattern will be applied 
+     */
+    public void sortRelocators(){
+    	Collections.sort(relocators);
+    }
+    
     public List<Relocator> getRelocators()
     {
         return relocators;

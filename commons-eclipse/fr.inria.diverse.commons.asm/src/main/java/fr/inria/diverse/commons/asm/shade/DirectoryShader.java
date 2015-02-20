@@ -27,6 +27,10 @@ public class DirectoryShader {
 
 		shadeRequest.getOutputFolder().mkdirs();
 
+		if(shadeRequest.isMustSortRelocators()){
+			shadeRequest.sortRelocators();
+		}
+		
 		for (File inputFolder : shadeRequest.getInputFolders()) {
 			shadeFolder(shadeRequest, resources, inputFolder, inputFolder);
 		}
@@ -114,7 +118,6 @@ public class DirectoryShader {
 		String sourceContent = IOUtil.toString(new InputStreamReader(is,
 				"UTF-8"));
 
-		
 		for (Relocator relocator : relocators) {
 			sourceContent = relocator.preApplyToSourceContent(sourceContent);
 		}

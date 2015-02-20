@@ -222,4 +222,15 @@ public class SimpleRelocator
             return sourceContent.replaceAll( "\\b" + uniquePattern, shadedPattern );
         }
     }
+
+    public String getPattern(){
+    	return pattern;
+    }
+    
+	@Override
+	public int compareTo(Relocator o) {
+		// the longer string means a Stronger pattern so it will be placed before
+		if(o instanceof SimpleRelocator) return -(pattern.compareTo(((SimpleRelocator)o).getPattern()));
+		else return -777;
+	}
 }

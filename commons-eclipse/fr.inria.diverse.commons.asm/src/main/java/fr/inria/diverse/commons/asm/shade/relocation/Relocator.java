@@ -20,7 +20,7 @@ package fr.inria.diverse.commons.asm.shade.relocation;
  */
 
 /** @author Jason van Zyl */
-public interface Relocator
+public interface Relocator extends Comparable<Relocator>
 {
     String ROLE = Relocator.class.getName();
 
