@@ -14,4 +14,5 @@ Bundle-ClassPath: lib/plexus-utils.jar,
 Export-Package: fr.inria.diverse.commons.asm,
  fr.inria.diverse.commons.asm.shade,
  fr.inria.diverse.commons.asm.shade.filter,
- fr.inria.diverse.commons.asm.shade.relocation
+ fr.inria.diverse.commons.asm.shade.relocation,
+ fr.inria.diverse.commons.asm.shade.resource

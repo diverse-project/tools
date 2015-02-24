@@ -24,6 +24,7 @@ package fr.inria.diverse.commons.asm.shade;
 
 import fr.inria.diverse.commons.asm.shade.filter.Filter;
 import fr.inria.diverse.commons.asm.shade.relocation.Relocator;
+import fr.inria.diverse.commons.asm.shade.resource.ResourceTransformer;
 
 import java.io.File;
 import java.util.Collections;
@@ -47,7 +48,7 @@ public class ShadeRequest
     
     private boolean mustSortRelocators = true;
 
-   // private List<ResourceTransformer> resourceTransformers;
+   private List<ResourceTransformer> resourceTransformers;
 
     public boolean isMustSortRelocators() {
 		return mustSortRelocators;
@@ -127,20 +128,20 @@ public class ShadeRequest
         this.relocators = relocators;
     }
 
-  /*  public List<ResourceTransformer> getResourceTransformers()
+    public List<ResourceTransformer> getResourceTransformers()
     {
         return resourceTransformers;
     }
-*/
+
     /**
      * The transformers.
      *
      * @param resourceTransformers
      */
-  /*  public void setResourceTransformers( List<ResourceTransformer> resourceTransformers )
+    public void setResourceTransformers( List<ResourceTransformer> resourceTransformers )
     {
         this.resourceTransformers = resourceTransformers;
-    }*/
+    }
 
     public boolean isShadeSourcesContent()
     {

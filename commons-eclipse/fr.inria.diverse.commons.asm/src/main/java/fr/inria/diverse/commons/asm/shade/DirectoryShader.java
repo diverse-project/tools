@@ -18,6 +18,7 @@ import org.objectweb.asm.commons.Remapper;
 
 import fr.inria.diverse.commons.asm.shade.filter.Filter;
 import fr.inria.diverse.commons.asm.shade.relocation.Relocator;
+import fr.inria.diverse.commons.asm.shade.resource.ResourceTransformer;
 
 public class DirectoryShader {
 
@@ -56,6 +57,9 @@ public class DirectoryShader {
 
 		List<Filter> folderFilters = getFilters(inputFolder,
 				shadeRequest.getFilters());
+		
+		List<ResourceTransformer> transformers =
+	            new ArrayList<ResourceTransformer>( shadeRequest.getResourceTransformers() );
 
 		for (File file : folder.listFiles()) {
 			// remove the inputFolder part of the path to get the name
@@ -90,6 +94,10 @@ public class DirectoryShader {
 					addJavaSource(resources, shadeRequest.getOutputFolder(), mappedName, file,
 							shadeRequest.getRelocators());
 				}
+				else
+                {
+                    addResource(resources, shadeRequest.getOutputFolder(), transformers, mappedName, file, shadeRequest.getRelocators() );
+                }
 
 			}
 		}
@@ -134,6 +142,25 @@ public class DirectoryShader {
 		resources.add(name);
 	}
 
+    private boolean addResource(Set<String> resources, File outputFolder, List<ResourceTransformer> resourceTransformers, String name, File file,
+            List<Relocator> relocators ) throws IOException {
+		boolean resourceTransformed = false;
+		
+		for ( ResourceTransformer transformer : resourceTransformers ){
+			if ( transformer.canTransformResource( name ) )
+			{
+				//getLogger().debug( "Transforming " + name + " using " + transformer.getClass().getName() );
+				
+				transformer.processResource( name,  file, outputFolder, relocators );
+				
+				resourceTransformed = true;
+				
+				break;
+			}
+		}
+		return resourceTransformed;
+	}	
+	
 	private List<Filter> getFilters(File folder, List<Filter> filters) {
 		List<Filter> list = new ArrayList<Filter>();
 
