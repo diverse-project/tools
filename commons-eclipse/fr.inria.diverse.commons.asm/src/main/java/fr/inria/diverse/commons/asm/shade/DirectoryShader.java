@@ -85,7 +85,7 @@ public class DirectoryShader {
 				if (name.endsWith(".class")) {
 					// duplicates.put( name, jar );
 					// addRemappedClass( remapper, jos, jar, name, is );
-				} else if ( /* shadeRequest.isShadeSourcesContent() && */name.endsWith(".java")) {
+				} else if (name.endsWith(".java") || name.endsWith(".xtend")) {
 					// Avoid duplicates
 					if (resources.contains(mappedName)) {
 						continue;
