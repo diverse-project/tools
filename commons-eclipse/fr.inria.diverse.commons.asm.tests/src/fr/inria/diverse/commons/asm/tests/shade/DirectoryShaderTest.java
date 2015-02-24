@@ -42,6 +42,7 @@ import fr.inria.diverse.commons.asm.shade.filter.Filter;
 import fr.inria.diverse.commons.asm.shade.filter.SimpleFilter;
 import fr.inria.diverse.commons.asm.shade.relocation.Relocator;
 import fr.inria.diverse.commons.asm.shade.relocation.SimpleRelocator;
+import fr.inria.diverse.commons.asm.shade.resource.ResourceTransformer;
 
 /**
  * @author Jason van Zyl
@@ -144,7 +145,7 @@ public class DirectoryShaderTest
         relocators.add( new SimpleRelocator( "org/gemoc/sigpml/util", "org/gemoc/sigpml/new_util", null, Arrays.asList( new String[] {} ) ) );
         relocators.add( new SimpleRelocator( "org/gemoc/sigpml", "org/gemoc/sigpml/extended", null, Arrays.asList( new String[] {} ) ) );
         
-       // List<ResourceTransformer> resourceTransformers = new ArrayList<ResourceTransformer>();
+        List<ResourceTransformer> resourceTransformers = new ArrayList<ResourceTransformer>();
 
         //resourceTransformers.add( new ComponentsXmlResourceTransformer() );
 
@@ -155,7 +156,7 @@ public class DirectoryShaderTest
         shadeRequest.setOutputFolder( new File("target/"+outputFolderName) );
         shadeRequest.setFilters( filters );
         shadeRequest.setRelocators( relocators );
-       // shadeRequest.setResourceTransformers( resourceTransformers );
+        shadeRequest.setResourceTransformers( resourceTransformers );
 
         s.shade( shadeRequest );
 
@@ -197,7 +198,7 @@ public class DirectoryShaderTest
 
        // List<ResourceTransformer> resourceTransformers = new ArrayList<ResourceTransformer>();
 
-        //resourceTransformers.add( new ComponentsXmlResourceTransformer() );
+        // resourceTransformers.add( new ComponentsXmlResourceTransformer() );
 
         List<Filter> filters = new ArrayList<Filter>();
 
@@ -206,7 +207,7 @@ public class DirectoryShaderTest
         shadeRequest.setOutputFolder( outputFolder );
         shadeRequest.setFilters( filters );
         shadeRequest.setRelocators( relocators );
-       // shadeRequest.setResourceTransformers( resourceTransformers );
+        shadeRequest.setResourceTransformers( new ArrayList<ResourceTransformer>() );
 
         s.shade( shadeRequest );
     }
@@ -239,7 +240,7 @@ public class DirectoryShaderTest
             shadeRequest.setOutputFolder( outputFolder );
             shadeRequest.setFilters( filters );
             shadeRequest.setRelocators( relocators );
-           // shadeRequest.setResourceTransformers( resourceTransformers );
+            shadeRequest.setResourceTransformers( new ArrayList<ResourceTransformer>() );
 
             s.shade( shadeRequest );
         }
