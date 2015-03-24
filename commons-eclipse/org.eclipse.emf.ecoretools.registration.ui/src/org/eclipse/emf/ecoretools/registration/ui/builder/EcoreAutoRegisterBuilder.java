@@ -2,10 +2,6 @@ package org.eclipse.emf.ecoretools.registration.ui.builder;
 
 import java.util.Map;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
@@ -21,12 +17,9 @@ import org.eclipse.emf.ecoretools.registration.EcoreUnregistering;
 import org.eclipse.emf.ecoretools.registration.exceptions.NotValidEPackageURIException;
 import org.eclipse.emf.ecoretools.registration.view.RegisteredPackageView;
 import org.eclipse.swt.widgets.Display;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.helpers.DefaultHandler;
 
 public class EcoreAutoRegisterBuilder extends IncrementalProjectBuilder {
-
+	
 	class EcoreAutoRegisterDeltaVisitor implements IResourceDeltaVisitor {
 		/*
 		 * (non-Javadoc)
@@ -147,5 +140,7 @@ public class EcoreAutoRegisterBuilder extends IncrementalProjectBuilder {
 			IProgressMonitor monitor) throws CoreException {
 		// the visitor does the work.
 		delta.accept(new EcoreAutoRegisterDeltaVisitor());
+		
+		
 	}
 }

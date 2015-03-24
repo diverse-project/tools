@@ -3,6 +3,10 @@ package org.eclipse.emf.ecoretools.registration.ui;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
@@ -10,6 +14,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.ecoretools.registration.ui.builder.EcoreAutoRegisterBuilder;
+import org.eclipse.emf.ecoretools.registration.ui.builder.EcoreAutoRegisterNature;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -27,6 +33,7 @@ public class RegistrationUIPlugin extends AbstractUIPlugin {
 	
 	private HashMap<String, String> ePackageNsURIPluginIDMapCache =  null;
 	
+	
 	/**
 	 * The constructor
 	 */
@@ -40,6 +47,17 @@ public class RegistrationUIPlugin extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+		try{
+			IWorkspace workspace = ResourcesPlugin.getWorkspace();
+			for(IProject proj : workspace.getRoot().getProjects()){
+				if(proj.isAccessible() && proj.getNature(EcoreAutoRegisterNature.NATURE_ID) != null){
+					proj.build(IncrementalProjectBuilder.FULL_BUILD, EcoreAutoRegisterBuilder.BUILDER_ID, null, null);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 	}
 
 	/*
@@ -105,4 +123,5 @@ public class RegistrationUIPlugin extends AbstractUIPlugin {
 	public void resetCache() {
 		ePackageNsURIPluginIDMapCache = null;
 	}
+
 }
