@@ -75,4 +75,106 @@
             id="org.eclipse.emf.ecoretools.registration.viewregisteredpackages"
             name="EMF registered packages"/>
    </extension>
+   <extension
+         id="ecoreAutoRegisterBuilder"
+         name="EcoreAutoRegister Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="true">
+         <run
+               class="org.eclipse.emf.ecoretools.registration.ui.builder.EcoreAutoRegisterBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="ecoreAutoRegisterNature"
+         name="EcoreAutoRegister Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="org.eclipse.emf.ecoretools.registration.ui.builder.EcoreAutoRegisterNature">
+         </run>
+      </runtime>
+      <builder
+            id="org.eclipse.emf.ecoretools.registration.ui.ecoreAutoRegisterBuilder">
+      </builder>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.eclipse.emf.ecoretools.registration.ui.ecoreAutoRegisterNature.category"
+            name="EcoreAutoRegister Nature commands">
+      </category>
+      <command
+            categoryId="org.eclipse.emf.ecoretools.registration.ui.ecoreAutoRegisterNature.category"
+            defaultHandler="org.eclipse.emf.ecoretools.registration.ui.builder.AddRemoveEcoreAutoRegisterNatureHandler"
+            id="org.eclipse.emf.ecoretools.registration.ui.addRemoveEcoreAutoRegisterNature"
+            name="Add/RemoveEcoreAutoRegister Nature">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.projectConfigure?after=additions">
+         <command
+               commandId="org.eclipse.emf.ecoretools.registration.ui.addRemoveEcoreAutoRegisterNature"
+               label="Disable EcoreAutoRegister builder"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <adapt
+                           type="org.eclipse.core.resources.IProject">
+                        <test
+                              property="org.eclipse.core.resources.projectNature"
+                              value="org.eclipse.emf.ecoretools.registration.ui.ecoreAutoRegisterNature">
+                        </test>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.eclipse.emf.ecoretools.registration.ui.addRemoveEcoreAutoRegisterNature"
+               label="Enable EcoreAutoRegister builder"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <adapt
+                           type="org.eclipse.core.resources.IProject">
+                        <not>
+                           <test
+                                 property="org.eclipse.core.resources.projectNature"
+                                 value="org.eclipse.emf.ecoretools.registration.ui.ecoreAutoRegisterNature">
+                           </test>
+                        </not>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         id="ecoreAutoRegisterProblem"
+         name="EcoreAutoRegister Problem"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
 </plugin>
