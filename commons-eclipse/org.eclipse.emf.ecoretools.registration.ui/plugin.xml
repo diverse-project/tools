@@ -177,4 +177,10 @@
             value="true">
       </persistent>
    </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="org.eclipse.emf.ecoretools.registration.ui.EarlyStartUp">
+      </startup>
+   </extension>
 </plugin>
