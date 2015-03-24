@@ -19,6 +19,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecoretools.registration.EcoreRegistering;
 import org.eclipse.emf.ecoretools.registration.EcoreUnregistering;
 import org.eclipse.emf.ecoretools.registration.exceptions.NotValidEPackageURIException;
+import org.eclipse.emf.ecoretools.registration.view.RegisteredPackageView;
+import org.eclipse.swt.widgets.Display;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -116,6 +118,12 @@ public class EcoreAutoRegisterBuilder extends IncrementalProjectBuilder {
 				EcoreRegistering.registerPackages(ecoreFile);
 			} catch (NotValidEPackageURIException e) {
 				addMarker(ecoreFile, "Cannot completly register EPackages from "+ecoreFile.getName()+" "+e.getMessage(), -1, IMarker.SEVERITY_WARNING);
+			}
+			if(Display.getDefault() != null){
+				Display.getDefault().asyncExec(new Runnable(){
+					public void run() {
+						RegisteredPackageView.refreshViewIfActive();
+					}});
 			}
 		}
 	}

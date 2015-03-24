@@ -15,8 +15,10 @@ package org.eclipse.emf.ecoretools.registration.view;
 
 import java.util.Iterator;
 
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecoretools.registration.EMFRegistryHelper;
+import org.eclipse.emf.ecoretools.registration.RegistrationPlugin;
 import org.eclipse.emf.ecoretools.registration.icons.ButtonIcons;
 import org.eclipse.emf.ecoretools.registration.internal.NsURIComparator;
 import org.eclipse.emf.ecoretools.registration.internal.RegisteredPackageComparator;
@@ -41,6 +43,7 @@ import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchActionConstants;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.ViewPart;
@@ -268,5 +271,13 @@ public class RegisteredPackageView extends ViewPart {
 			}
 		}
 		return result;
+	}
+	
+	public static void refreshViewIfActive(){
+		RegisteredPackageView view;
+		view = (RegisteredPackageView)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(RegisteredPackageView.ID);
+		if(view != null) {
+			view.refresh();
+		}
 	}
 }
