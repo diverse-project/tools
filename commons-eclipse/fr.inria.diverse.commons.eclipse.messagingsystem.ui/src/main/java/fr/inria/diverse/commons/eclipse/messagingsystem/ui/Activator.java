@@ -10,6 +10,7 @@ package fr.inria.diverse.commons.eclipse.messagingsystem.ui;
 
 import java.io.PrintStream;
 
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -56,8 +57,7 @@ public class Activator extends AbstractUIPlugin {
 		//messaggingSystem = new StdioSimpleMessagingSystem();
 
 		
-		final IWorkbench workbench = PlatformUI.getWorkbench();
-		workbench.getDisplay().asyncExec(new Runnable() {
+		Display.getDefault().asyncExec(new Runnable() {
 		   public void run() {
 			   Boolean mustCapture = getPreferenceStore().getBoolean(PreferenceConstants.P_CAPTURE_SYSTEM_ERROUT);
 			   if (mustCapture) {
