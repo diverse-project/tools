@@ -1,42 +1,36 @@
-package fr.inria.diverse.commons.eclipse.pde.classpath;
+package fr.inria.diverse.commons.eclipse.pde.manifest;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Enumeration;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.osgi.util.ManifestElement;
 import org.osgi.framework.BundleException;
 
-public class ManifestChanger {
-	protected Manifest manifest;
+class ManifestChangerPluginDependency {
 
+	private ManifestChanger _connection;
 	
-	public ManifestChanger(){
-	}
-	public ManifestChanger(InputStream inputStream) throws IOException, CoreException{
-		loadManifest(inputStream);
-	}
-	public ManifestChanger(IFile loadedFile) throws IOException, CoreException{
-		loadManifest(loadedFile.getContents());
+	public ManifestChangerPluginDependency(ManifestChanger connection) {
+		_connection = connection;
 	}
 	
-	public void addPluginDependency(String plugin, String version,
-			boolean reexport, boolean overwrite) throws BundleException {
+	public void add(String pluginName) throws BundleException, IOException, CoreException {
+		add(pluginName, "0.0.0", true, true);
+	}
+
+	private Manifest getManifest() throws IOException, CoreException {
+		return _connection.getManifest();
+	}
+	
+	public void add(String plugin, String version, boolean reexport, boolean overwrite) throws BundleException, IOException, CoreException {
 		final String requireBundleHeader = "Require-Bundle";
 		final String bundleVersionAttr = "bundle-version";
 		final String rexportDirective = "visibility";
 
-		assert (manifest != null);
+		//assert (manifest != null);
 		assert (plugin != null);
 		if (plugin == null)
 			return;
@@ -48,7 +42,7 @@ public class ManifestChanger {
 		boolean hasValuesForPlugin = false;
 		StringBuilder strBuilder = new StringBuilder();
 
-		Attributes mainAttrs = manifest.getMainAttributes();
+		Attributes mainAttrs = getManifest().getMainAttributes();
 		for (Object entryName : mainAttrs.keySet()) {
 			String values;
 			String header;
@@ -193,7 +187,7 @@ public class ManifestChanger {
 		}
 		if (!foundHeader) {
 			// Add a new one
-			manifest.getMainAttributes().putValue(
+			getManifest().getMainAttributes().putValue(
 					requireBundleHeader,
 					plugin + ";" + bundleVersionAttr + "=" + version + ";"
 							+ rexportDirective + ":="
@@ -203,7 +197,7 @@ public class ManifestChanger {
 			if (hasValuesForPlugin) {
 				// we have already edited the values for the plugin we wish to
 				// add
-				manifest.getMainAttributes().putValue(requireBundleHeader,
+				getManifest().getMainAttributes().putValue(requireBundleHeader,
 						strBuilder.toString());
 			} else {
 				// There are no values for the plugin we wish to add.
@@ -215,83 +209,11 @@ public class ManifestChanger {
 						+ (reexport ? "reexport" : "private");
 				newValue = (areExistingValues) ? (existingValues + ",\n " + newValue)
 						: newValue;
-				manifest.getMainAttributes().putValue(requireBundleHeader,
+				getManifest().getMainAttributes().putValue(requireBundleHeader,
 						newValue);
 			}
 		}
 	}
 
-	public void addSingleton() throws BundleException{
-		final String bundleSymbolicNameHeader = "Bundle-SymbolicName";
-		Attributes mainAttrs = manifest.getMainAttributes();
-		String value = null;
-		for (Object entryName : mainAttrs.keySet()) {
-			String header;
 
-			// Get the values safely
-			if (entryName instanceof String) {
-				header = (String) entryName;
-				value = mainAttrs.getValue(header);
-			} else if (entryName instanceof Attributes.Name) {
-				header = (String) ((Attributes.Name) entryName).toString();
-				value = mainAttrs.getValue((Attributes.Name) entryName);
-			} else {
-				throw new BundleException("Unknown Main Attribute Key type: "
-						+ entryName.getClass() + " (" + entryName + ")");
-			}
-
-			// loop to the next header if we don't find ours
-			if (bundleSymbolicNameHeader.equals(header)){
-				break;
-			}
-		}
-		if(value != null && !value.endsWith( ";singleton:=true")){
-			// doesn't exist or already have it, so do not try to add the singleton ...
-			manifest.getMainAttributes().putValue(bundleSymbolicNameHeader,
-					value + ";singleton:=true");
-		}
-	}
-	
-	public void addAttributes(String attributeName, String value){
-		manifest.getMainAttributes().putValue(attributeName, value);
-	}
-	public static void main(String[] args) throws Exception {
-		try {
-			String fileName = "C:\\Documents and Settings\\Administrator.ARDEN\\branchWorkspace\\org.jvnet.jaxbw.eclipse\\testData\\Manifest.mf";
-			ManifestChanger manifestChanger = new ManifestChanger();
-			FileInputStream in = new FileInputStream(fileName);
-			manifestChanger.loadManifest(in);
-			in.close();
-			manifestChanger.addPluginDependency("MyPlugin", "1.5.0", false,
-					true);
-			FileOutputStream out = new FileOutputStream(fileName);
-			manifestChanger.writeManifest(out);
-			out.close();
-		} catch (Throwable t) {
-			System.err.println("Unexpected Exception: " + t);
-			t.printStackTrace();
-		}
-	}
-
-	public void writeManifest(OutputStream out) throws IOException {
-		manifest.write(out);
-	}
-	public void writeManifest(IFile outputFile) throws IOException, CoreException {
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		writeManifest(out);
-		outputFile.setContents(new ByteArrayInputStream(out.toByteArray()), 1, new NullProgressMonitor());
-	}
-
-	public void loadManifest(InputStream in) throws IOException {
-		 manifest =  new Manifest(in);
-	}
-
-	public Manifest getManifest() {
-		return manifest;
-	}
-
-	public void setManifest(Manifest manifest) {
-		this.manifest = manifest;
-	}
-	
 }

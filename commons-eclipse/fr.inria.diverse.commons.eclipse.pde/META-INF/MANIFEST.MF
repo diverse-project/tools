@@ -15,6 +15,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: fr.inria.diverse.commons.eclipse.pde,
  fr.inria.diverse.commons.eclipse.pde.classpath,
+ fr.inria.diverse.commons.eclipse.pde.manifest,
  fr.inria.diverse.commons.eclipse.pde.wizards.pages.pde,
  fr.inria.diverse.commons.eclipse.pde.wizards.pages.pde.ui,
  fr.inria.diverse.commons.eclipse.pde.wizards.pages.pde.ui.templates
