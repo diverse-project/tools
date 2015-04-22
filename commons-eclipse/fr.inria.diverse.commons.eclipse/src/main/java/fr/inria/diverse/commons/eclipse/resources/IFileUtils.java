@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import org.apache.commons.io.IOUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -18,7 +19,25 @@ public class IFileUtils {
 	
 	static String lineSeparator = System.getProperty("line.separator");
 	
-		
+	
+	public static void writeInFileIfDifferent(IFile file, String contents, IProgressMonitor monitor) throws CoreException, IOException{		
+		InputStream stream =  new ByteArrayInputStream(contents.getBytes(("UTF-8")));
+		try{
+			if (file.exists()) {
+				if(!IOUtils.contentEquals(stream, file.getContents(true))){
+					stream =  new ByteArrayInputStream(contents.getBytes(("UTF-8")));
+					file.setContents(stream, true, true, monitor);	
+				}
+			} else {
+				file.create(stream, true, monitor);
+			}
+		}
+		finally{
+			IOUtils.closeQuietly(stream);
+		}
+	}
+	
+	
 	public static void writeInFile(IFile file, String contents, IProgressMonitor monitor) throws CoreException, IOException{
 		InputStream stream =  new ByteArrayInputStream(contents.getBytes(("UTF-8")));
 		if (file.exists()) {
