@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map.Entry;
+import java.util.jar.Attributes;
+import java.util.jar.Attributes.Name;
 import java.util.jar.Manifest;
 
 import org.eclipse.core.resources.IFile;
@@ -55,7 +57,16 @@ public class ManifestChanger {
 		for (Entry<Object, Object> pairs : _manifest.getMainAttributes().entrySet()) {
 			builder.append(pairs.getKey());
 			builder.append(": ");
-			builder.append(pairs.getValue());
+			Object key = pairs.getKey();
+			Object value = pairs.getValue();
+			if(key.toString().equals("Require-Bundle") && value instanceof String){
+				String val = (String) value;
+				String newVal = val.replaceAll(",", ",\n ");
+				builder.append(newVal);
+			}
+			else{
+				builder.append(pairs.getValue());
+			}
 			builder.append(System.getProperty("line.separator"));
 		}
 		out.write(builder.toString().getBytes());			
