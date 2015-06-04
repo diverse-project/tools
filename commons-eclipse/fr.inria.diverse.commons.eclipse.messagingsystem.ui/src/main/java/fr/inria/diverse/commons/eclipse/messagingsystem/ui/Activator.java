@@ -140,7 +140,8 @@ public class Activator extends AbstractUIPlugin {
 			System.out.flush();
 		if (System.err != null)
 			System.err.flush();
-		consoleIO.print("Stopping redirection of System.out and System.err to this console.\n");
+		if(consoleIO != null)
+			consoleIO.print("Stopping redirection of System.out and System.err to this console.\n");
 		if (OriginalSystemOut != null)
 			System.setOut(OriginalSystemOut);
 		if (OriginalSystemErr != null)
