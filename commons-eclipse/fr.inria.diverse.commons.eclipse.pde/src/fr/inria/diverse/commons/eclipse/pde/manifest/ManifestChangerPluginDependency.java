@@ -9,7 +9,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.osgi.util.ManifestElement;
 import org.osgi.framework.BundleException;
 
-class ManifestChangerPluginDependency {
+public class ManifestChangerPluginDependency {
 
 	private ManifestChanger _connection;
 	
