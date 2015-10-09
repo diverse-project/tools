@@ -1,4 +1,4 @@
-package fr.inria.diverse.commons.xtendparser
+package fr.inria.diverse.commons.eclipse.xtendparser
 
 import com.google.common.base.Joiner
 import com.google.inject.Injector
@@ -36,7 +36,7 @@ import org.eclipse.core.resources.ResourcesPlugin
  * 
  * @author Erwan Bousse <erwan.bousse@irisa.fr>
  */
-class XtendLoader {
+class XtendParser {
 
 	/**
 	 * Output: the set of XtendFile objects
