@@ -21,6 +21,7 @@
         <module>../fr.inria.diverse.commons.asm</module>
         <module>../fr.inria.diverse.commons.asm.tests</module>
         <module>../fr.inria.diverse.commons.provisionner4eclipse</module>
+        <module>../fr.inria.diverse.commons.eclipse.xtendparser</module>
 
         <!-- feature and update site -->
         <module>fr.inria.diverse.commons.eclipse.feature</module>
