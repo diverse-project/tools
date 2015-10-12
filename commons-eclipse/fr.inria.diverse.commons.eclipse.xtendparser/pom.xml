@@ -17,6 +17,9 @@
 
 	<groupId>fr.inria.diverse.commons.eclipse</groupId>
 
+	<properties>
+		<xtend.version>2.8.2</xtend.version>
+	</properties>
 
 
 	<build>
