@@ -124,18 +124,14 @@ class XtendParser {
 			xtendBatchCompiler.setUseCurrentClassLoaderAsParent(true);
 
 			// Setting the output folder (will not really be used, nothing will be generated)
-			val File out = File.createTempFile("xtendLoaderOutput", "")
-			out.delete
-			out.mkdir
-			out.deleteOnExit
-			xtendBatchCompiler.setOutputPath(out.absolutePath);
+			xtendBatchCompiler.setOutputPath(new File(srcFolders.get(0)).parentFile.absolutePath);
 
 			// Setting the src folders
 			val String pathes = Joiner.on(File.pathSeparator).join(srcFolders);
 			xtendBatchCompiler.setSourcePath(pathes);
 
 			if (!xtendBatchCompiler.compile()) {
-
+ 
 				// Gathering errors
 				val StringBuilder issues = new StringBuilder();
 				if (xtendBatchCompiler.getIssues != null && ! xtendBatchCompiler.getIssues.empty)
@@ -143,9 +139,11 @@ class XtendParser {
 						issues.append("\n" + i.toString)
 
 				// Cleaning up
-				xtendBatchCompiler.resourceSet.resources.clear
+				if (xtendBatchCompiler.resourceSet != null)
+					xtendBatchCompiler.resourceSet.resources.clear
 				xtendBatchCompiler.resourceSet = null
-				xtendBatchCompiler.issues.clear
+				if (xtendBatchCompiler.issues != null)
+					xtendBatchCompiler.issues.clear
 				xtendBatchCompiler.issues = null
 
 				// Throwing error
@@ -158,7 +156,7 @@ class XtendParser {
 				if (resource instanceof BatchLinkableResource) {
 					for (EObject o : resource.allContents.toSet) {
 						if (o instanceof XtendFile) {
-							xtendModel.add(o);
+							xtendModel.add(o); 
 						}
 					}
 				} else if (resource instanceof TypeResource) {
