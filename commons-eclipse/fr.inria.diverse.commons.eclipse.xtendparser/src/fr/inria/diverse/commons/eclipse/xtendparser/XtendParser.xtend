@@ -164,8 +164,7 @@ class XtendParser {
 				}
 			}
 		} finally {
-			if (toRestore != null)
-				Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xtend", toRestore)
+			Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xtend", toRestore)
 		}
 	}
 
