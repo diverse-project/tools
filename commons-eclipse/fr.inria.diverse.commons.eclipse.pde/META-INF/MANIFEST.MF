@@ -10,10 +10,12 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.jdt.core,
  org.eclipse.ui.workbench,
- org.eclipse.ui.ide
+ org.eclipse.ui.ide,
+ org.eclipse.jdt.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
-Export-Package: fr.inria.diverse.commons.eclipse.pde,
+Export-Package: fr.inria.diverse.commons.eclipse.callgraph,
+ fr.inria.diverse.commons.eclipse.pde,
  fr.inria.diverse.commons.eclipse.pde.classpath,
  fr.inria.diverse.commons.eclipse.pde.java,
  fr.inria.diverse.commons.eclipse.pde.manifest,
