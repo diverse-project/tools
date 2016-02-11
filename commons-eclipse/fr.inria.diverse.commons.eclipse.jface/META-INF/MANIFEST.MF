@@ -7,8 +7,11 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Jface helpers Utilities
 Bundle-SymbolicName: fr.inria.diverse.commons.eclipse.jface
 Bundle-Version: 1.0.0.qualifier
-Export-Package: fr.inria.diverse.commons.eclipse.jface.preference
+Export-Package: fr.inria.diverse.commons.eclipse.jface.preference,
+ fr.inria.diverse.commons.eclipse.jface.wizards
 Import-Package: org.eclipse.swt.events,org.eclipse.swt.graphics,org.ecli
  pse.swt.layout,org.eclipse.swt.widgets
-Require-Bundle: org.eclipse.core.runtime,org.eclipse.ui
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.core.resources
 Tool: Bnd-1.50.0
