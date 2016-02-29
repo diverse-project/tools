@@ -5,6 +5,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.jface.wizard.IWizard;
+import org.eclipse.jface.wizard.IWizardContainer;
 import org.eclipse.jface.wizard.IWizardNode;
 import org.eclipse.pde.internal.ui.IHelpContextIds;
 import org.eclipse.pde.internal.ui.PDEUIMessages;
@@ -222,7 +223,11 @@ public class TemplateListSelectionPage extends WizardListSelectionPage implement
 		if (!useTemplate)
 			setDescription(""); //$NON-NLS-1$
 		setDescriptionEnabled(useTemplate);
-		getContainer().updateButtons();
+		
+		IWizardContainer container = getContainer();
+		if(container.getCurrentPage() != null){
+			container.updateButtons();
+		}
 	}
 }
 
