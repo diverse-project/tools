@@ -145,7 +145,7 @@ public abstract class AbstractExampleWizard extends Wizard implements
 	protected abstract Collection<ProjectDescriptor> getProjectDescriptors();
 
 	private void unzipProject(ProjectDescriptor descriptor,
-			IProgressMonitor monitor) {
+			final IProgressMonitor monitor) {
 		String bundleName = descriptor.getBundleName();
 		String zipLocation = descriptor.getZipLocation();
 		String projectName = descriptor.getProjectName();
