@@ -36,7 +36,7 @@ public class EclipseMessagingSystemPreferencePage
 	public EclipseMessagingSystemPreferencePage() {
 		super(GRID);
 		setPreferenceStore(Activator.getDefault().getPreferenceStore());
-		setDescription("Configuration of Kermeta console");
+		setDescription("Configuration of DiverSE console");
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public class EclipseMessagingSystemPreferencePage
 		//addField(
 		//	new StringFieldEditor(PreferenceConstants.P_CAPTURE_SYSTEM_ERROUT, "Bundle URI List:", getFieldEditorParent());
 		addField(
-			new org.eclipse.jface.preference.BooleanFieldEditor(PreferenceConstants.P_CAPTURE_SYSTEM_ERROUT, "try to capture System.out and System.err in Kermeta default console:", getFieldEditorParent()));
+			new org.eclipse.jface.preference.BooleanFieldEditor(PreferenceConstants.P_CAPTURE_SYSTEM_ERROUT, "try to capture System.out and System.err in DiverSE default console:", getFieldEditorParent()));
 		addField(
 				new org.eclipse.jface.preference.IntegerFieldEditor(PreferenceConstants.P_MAX_CONSOLE_OUTPUT, "consoles buffer size (characters)(0 for no limit):", getFieldEditorParent()));
 		
