@@ -189,7 +189,7 @@ public class EclipseConsoleIO extends ConsoleIO implements IPropertyChangeListen
 	 */
 	public void changeColor(Color c){
 		Color previousColor = ((IOConsoleOutputStream) getOutputStream()).getColor();
-		if(!c.equals(previousColor)){
+		if( (c==null && c!= previousColor) || (c!=null && !c.equals(previousColor)) ){
 			// need to change to another stream for the new color
 			changeStream(); // reset the stream
 			((IOConsoleOutputStream) getOutputStream()).setColor(c);

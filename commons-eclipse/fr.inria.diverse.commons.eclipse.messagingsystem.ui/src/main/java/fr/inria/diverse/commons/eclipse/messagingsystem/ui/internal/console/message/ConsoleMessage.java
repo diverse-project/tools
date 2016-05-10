@@ -16,7 +16,7 @@ import org.eclipse.swt.graphics.Color;
 public class ConsoleMessage {
 
 	// some default colors that can be used
-	public static final Color INFO = new Color(null, 0,0,0);
+	public static final Color INFO = null; // make eclipse use default console text color  
 	public static final Color DEBUG = new Color(null, 0,128,0);
 	public static final Color DEBUG_WARNING = new Color(null, 128,128,0);
 	public static final Color DEBUG_ERROR = new Color(null, 128,64,0);
