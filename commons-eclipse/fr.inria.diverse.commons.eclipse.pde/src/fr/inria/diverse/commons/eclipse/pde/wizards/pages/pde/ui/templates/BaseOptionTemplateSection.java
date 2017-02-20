@@ -76,6 +76,28 @@ public abstract class BaseOptionTemplateSection extends AbstractTemplateSection 
 		registerOption(option, value, pageIndex);
 		return option;
 	}
+	
+	/**
+	 * Adds a string option with a provided name, label, tool tip and initial value.
+	 * 
+	 * @param name
+	 *            the unique name of the option (can be used as a variable in
+	 *            conditional code emitting and variable substitution)
+	 * @param label
+	 *            presentable name of the option
+	 * @param toolTip
+	 *            presentable toolTip of the option
+	 * @param value
+	 *            initial value of the option
+	 * @param pageIndex
+	 *            a zero-based index of a page where this option should appear
+	 * @return the newly created option
+	 */
+	protected TemplateOption addOption(String name, String label, String toolTip, String value, int pageIndex) {
+		StringOption option = new StringOption(this, name, label, toolTip);
+		registerOption(option, value, pageIndex);
+		return option;
+	}
 
 	/**
 	 * Adds a choice option with a provided name, label, list of choices and the

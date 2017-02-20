@@ -45,6 +45,25 @@ public class StringOption extends TemplateOption {
 		fStyle = F_DEFAULT_STYLE;
 		setRequired(true);
 	}
+	
+	/**
+	 * The constructor.
+	 * 
+	 * @param section
+	 *            the parent section
+	 * @param name
+	 *            the unique option name
+	 * @param label
+	 *            the translatable label of the option
+	 * @param toolTipText
+	 *            the translatable tool tip text of the option
+	 */
+	public StringOption(BaseOptionTemplateSection section, String name, String label, String toolTipText) {
+		super(section, name, label);
+		fStyle = F_DEFAULT_STYLE;
+		setRequired(true);
+		setToolTipText(toolTipText);
+	}
 
 	/**
 	 * Update the text widget style to be read only
@@ -82,6 +101,7 @@ public class StringOption extends TemplateOption {
 	public void setText(String newText) {
 		setValue(newText);
 	}
+	
 
 	/**
 	 * Implements the superclass method by passing the string value of the new
@@ -126,6 +146,7 @@ public class StringOption extends TemplateOption {
 				getSection().validateOptions(StringOption.this);
 			}
 		});
+		text.setToolTipText(this.getToolTipText());
 	}
 
 	/**

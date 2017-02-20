@@ -22,6 +22,7 @@ package fr.inria.diverse.commons.eclipse.pde.wizards.pages.pde.ui.templates;
 public abstract class TemplateOption extends TemplateField {
 	private String name;
 	private Object value;
+	private String toolTipText;
 	private boolean enabled = true;
 	private boolean required;
 
@@ -157,5 +158,13 @@ public abstract class TemplateOption extends TemplateField {
 				buf.append(c);
 		}
 		return buf.toString();
+	}
+
+	public String getToolTipText() {
+		return toolTipText;
+	}
+
+	public void setToolTipText(String toolTipText) {
+		this.toolTipText = toolTipText;
 	}
 }

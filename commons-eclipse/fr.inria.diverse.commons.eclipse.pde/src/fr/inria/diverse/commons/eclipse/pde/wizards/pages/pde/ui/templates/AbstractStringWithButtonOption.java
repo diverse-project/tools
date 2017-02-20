@@ -24,6 +24,12 @@ public abstract class AbstractStringWithButtonOption extends StringOption {
 		
 	}
 	
+	public AbstractStringWithButtonOption(BaseOptionTemplateSection section,
+			String name, String label, String toolTipText) {
+		super(section, name, label, toolTipText);
+		
+	}
+	
 	/**
 	 * Creates the string option control.
 	 * 
@@ -50,6 +56,7 @@ public abstract class AbstractStringWithButtonOption extends StringOption {
 				getSection().validateOptions(AbstractStringWithButtonOption.this);
 			}
 		});
+		text.setToolTipText(this.getToolTipText());
 		btnButton = new Button(parent, SWT.NONE);
 		btnButton.setText("Browse...");
 		btnButton.addSelectionListener(new SelectionAdapter() {
