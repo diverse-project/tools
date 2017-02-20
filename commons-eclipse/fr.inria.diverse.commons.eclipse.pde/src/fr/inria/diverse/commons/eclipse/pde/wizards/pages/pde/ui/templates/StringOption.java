@@ -92,7 +92,7 @@ public class StringOption extends TemplateOption {
 	 */
 	public void setValue(Object value) {
 		super.setValue(value);
-		if (text != null) {
+		if (text != null && !getText().equals(value)) {
 			ignoreListener = true;
 			String textValue = getText();
 			text.setText(textValue != null ? textValue : ""); //$NON-NLS-1$
