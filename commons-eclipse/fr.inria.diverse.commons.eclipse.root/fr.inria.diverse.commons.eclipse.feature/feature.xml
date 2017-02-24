@@ -3,7 +3,7 @@
       id="fr.inria.diverse.commons.eclipse.feature"
       label="DiverSE Commons"
       version="1.0.0.qualifier"
-      provider-name="INRIA">
+      provider-name="Inria DiverSE">
 
    <description url="http://diverse.irisa.fr">
       Commons libs that can be reused accross projects

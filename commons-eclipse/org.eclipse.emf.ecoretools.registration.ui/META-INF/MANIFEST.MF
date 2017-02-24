@@ -15,4 +15,4 @@ Export-Package: org.eclipse.emf.ecoretools.registration.popup.actions;x-internal
  org.eclipse.emf.ecoretools.registration.ui;x-internal:=true,
  org.eclipse.emf.ecoretools.registration.view;x-internal:=true
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Bundle-Vendor: INRIA
+Bundle-Vendor: Inria DiverSE

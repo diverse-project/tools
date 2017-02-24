@@ -22,3 +22,4 @@ Export-Package: fr.inria.diverse.commons.eclipse.callgraph,
  fr.inria.diverse.commons.eclipse.pde.wizards.pages.pde,
  fr.inria.diverse.commons.eclipse.pde.wizards.pages.pde.ui,
  fr.inria.diverse.commons.eclipse.pde.wizards.pages.pde.ui.templates
+Bundle-Vendor: Inria DiverSE

@@ -63,3 +63,4 @@ Bundle-ClassPath: .,
  libs/wagon-ahc-1.2.1.jar,
  libs/wagon-file-2.2.jar,
  libs/wagon-provider-api-2.2.jar
+Bundle-Vendor: Inria DiverSE

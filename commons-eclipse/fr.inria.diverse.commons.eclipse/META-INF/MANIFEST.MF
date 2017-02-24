@@ -13,3 +13,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7,
  JavaSE-1.6
 Bundle-ClassPath: lib/commons-io-2.4.jar,
  .
+Bundle-Vendor: Inria DiverSE

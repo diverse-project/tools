@@ -3,7 +3,7 @@
       id="org.eclipse.emf.ecoretools.registration.feature"
       label="EPackage registrationFeature"
       version="0.1.2.qualifier"
-      provider-name="IRISA/INRIA">
+      provider-name="Inria DiverSE">
 
    <description>
       This set of plugins offers to dynamically register EPackages from ecore files. This allows to be able to load conforming models

@@ -19,3 +19,4 @@ Require-Bundle: org.eclipse.ui,
  fr.inria.diverse.commons.aether
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7,
  JavaSE-1.6
+Bundle-Vendor: Inria DiverSE

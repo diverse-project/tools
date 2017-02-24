@@ -4,7 +4,7 @@ Bundle-Name: Eclipse EMF Tools Ui
 Bundle-SymbolicName: fr.inria.diverse.commons.eclipse.emf.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: fr.inria.diverse.commons.eclipse.emf.ui.Activator
-Bundle-Vendor: Inria
+Bundle-Vendor: Inria DiverSE
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,

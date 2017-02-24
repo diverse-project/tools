@@ -8,7 +8,7 @@ Bundle-Activator: fr.inria.diverse.commons.eclipse.messagingsystem.ui.Activator
 Bundle-ManifestVersion: 2
 Bundle-Name: fr.inria.diverse.commons.eclipse.messagingsystem.ui
 Bundle-SymbolicName: fr.inria.diverse.commons.eclipse.messagingsystem.ui;singleton:=true
-Bundle-Vendor: INRIA
+Bundle-Vendor: Inria DiverSE
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: fr.inria.diverse.commons.eclipse.messagingsystem.api,
                             org.eclipse.core.resources,
