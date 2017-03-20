@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map.Entry;
-import java.util.jar.Attributes;
-import java.util.jar.Attributes.Name;
 import java.util.jar.Manifest;
 
 import org.eclipse.core.resources.IFile;
@@ -59,7 +57,7 @@ public class ManifestChanger {
 			builder.append(": ");
 			Object key = pairs.getKey();
 			Object value = pairs.getValue();
-			if(key.toString().equals("Require-Bundle") && value instanceof String){
+			if((key.toString().equals("Require-Bundle") || key.toString().equals("Export-Package")) && value instanceof String && !((String)value).contains("\n")){
 				String val = (String) value;
 				String newVal = val.replaceAll(",", ",\n ");
 				builder.append(newVal);
@@ -67,7 +65,8 @@ public class ManifestChanger {
 			else{
 				builder.append(pairs.getValue());
 			}
-			builder.append(System.getProperty("line.separator"));
+			builder.append("\n");
+			//builder.append(System.getProperty("line.separator"));
 		}
 		out.write(builder.toString().getBytes());			
 	}
