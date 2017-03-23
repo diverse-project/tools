@@ -10,6 +10,7 @@ import org.eclipse.core.runtime.Path;
 public class IFolderUtils {
 
 	/**
+	 * Create IFolder if it doesn't exists
 	 * Recursively creates parent IFolder if required
 	 * @param folder
 	 * @param force
@@ -18,6 +19,7 @@ public class IFolderUtils {
 	 * @throws CoreException
 	 */
 	public static void create(IFolder folder, boolean force, boolean local, IProgressMonitor monitor) throws CoreException{
+		if(folder.exists()) return;
 		if(folder.getParent() instanceof IFolder && !folder.getParent().exists()){
 			create((IFolder) folder.getParent(), force, local, monitor);
 		}
