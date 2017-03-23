@@ -7,6 +7,7 @@ import java.util.zip.ZipInputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
@@ -29,6 +30,9 @@ public class IFileUtils {
 					file.setContents(stream, true, true, monitor);	
 				}
 			} else {
+				if(file.getParent() instanceof IFolder && !file.getParent().exists()){
+					IFolderUtils.create((IFolder) file.getParent(), true, true, monitor);
+				}
 				file.create(stream, true, monitor);
 			}
 		}
@@ -43,6 +47,9 @@ public class IFileUtils {
 		if (file.exists()) {
 			file.setContents(stream, true, true, monitor);
 		} else {
+			if(file.getParent() instanceof IFolder && !file.getParent().exists()){
+				IFolderUtils.create((IFolder) file.getParent(), true, true, monitor);
+			}
 			file.create(stream, true, monitor);
 		}
 		stream.close();
