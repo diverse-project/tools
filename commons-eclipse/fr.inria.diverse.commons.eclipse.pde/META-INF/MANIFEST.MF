@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DiverSE Commons Eclipse PDE
 Bundle-SymbolicName: fr.inria.diverse.commons.eclipse.pde;singleton:=true
-Bundle-Version: 1.0.1.qualifier
+Bundle-Version: 1.0.2.qualifier
 Bundle-Activator: fr.inria.diverse.commons.eclipse.pde.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -11,7 +11,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.core,
  org.eclipse.ui.workbench,
  org.eclipse.ui.ide,
- org.eclipse.jdt.ui
+ org.eclipse.jdt.ui,
+ fr.inria.diverse.commons.eclipse
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: fr.inria.diverse.commons.eclipse.callgraph,

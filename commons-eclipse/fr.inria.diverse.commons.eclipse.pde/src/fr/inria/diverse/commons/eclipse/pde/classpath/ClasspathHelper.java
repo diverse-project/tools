@@ -14,8 +14,8 @@ public class ClasspathHelper {
 	//JavaCore.newProjectEntry(_data.ecoreIFile.getProject().getFullPath())
 	/**
 	 * Add a new entry to the existing java project
-	 * use JavaCore factroy to create the entry itself
-	 * ex : JavaCore.newProjectEntry(ecoreIFile.getProject().getFullPath())
+	 * 	you can use JavaCore factory to create the entry itself
+	 * 	ex : JavaCore.newProjectEntry(ecoreIFile.getProject().getFullPath())
 	 */
 	public static void addEntry(IProject project, IClasspathEntry newEntry, IProgressMonitor monitor) throws CoreException{
 		IJavaProject javaProject = (IJavaProject)project.getNature(JavaCore.NATURE_ID);
@@ -28,5 +28,15 @@ public class ClasspathHelper {
 		newClassPathArrayList.add(newEntry);
 		IClasspathEntry[] newClassPath = new IClasspathEntry[newClassPathArrayList.size()];
 		javaProject.setRawClasspath(newClassPathArrayList.toArray(newClassPath), monitor);
+	}
+	
+	/**
+	 * Add a new Source entry (as String) to the existing java project
+	 * The project must have the java nature
+	 */
+	public static void addSourceEntry(IProject project, String newEntryFolder, IProgressMonitor monitor) throws CoreException{
+		IJavaProject javaProject = (IJavaProject) project.getNature(JavaCore.NATURE_ID);
+		IClasspathEntry entry = JavaCore.newSourceEntry(javaProject.getPackageFragmentRoot(project.getFolder(newEntryFolder)).getPath());
+		addEntry(project, entry, monitor);
 	}
 }
