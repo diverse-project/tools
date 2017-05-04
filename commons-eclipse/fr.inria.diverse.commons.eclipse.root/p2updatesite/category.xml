@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/fr.inria.diverse.commons.eclipse.feature_1.0.0.qualifier.jar" id="fr.inria.diverse.commons.eclipse.feature" version="1.0.0.qualifier">
+   <feature url="features/fr.inria.diverse.commons.eclipse.feature_1.0.2.qualifier.jar" id="fr.inria.diverse.commons.eclipse.feature" version="1.0.2.qualifier">
       <category name="diverse_commons"/>
    </feature>
    <feature url="features/fr.inria.diverse.commons.provisionner4eclipse.feature_1.0.0.qualifier.jar" id="fr.inria.diverse.commons.provisionner4eclipse.feature" version="1.0.0.qualifier">
