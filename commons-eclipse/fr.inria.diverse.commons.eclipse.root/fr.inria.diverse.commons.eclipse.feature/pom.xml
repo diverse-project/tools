@@ -6,7 +6,7 @@
     <relativePath>../pom.xml</relativePath>
     <groupId>fr.inria.diverse.commons.eclipse</groupId>
     <artifactId>fr.inria.diverse.commons.eclipse.root</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
   </parent>
 
   <artifactId>fr.inria.diverse.commons.eclipse.feature</artifactId>
