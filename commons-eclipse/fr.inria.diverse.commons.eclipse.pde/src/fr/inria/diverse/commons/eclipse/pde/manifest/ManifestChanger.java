@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map.Entry;
+import java.util.jar.Attributes.Name;
 import java.util.jar.Manifest;
 
 import org.eclipse.core.resources.IFile;
@@ -52,23 +53,39 @@ public class ManifestChanger {
 		// that inserts new lines that invalidates the file.
 		//manifest.write(out);
 		StringBuilder builder = new StringBuilder();
+		// write out the *-Version header first, if it exists
+        String vername = Name.MANIFEST_VERSION.toString();
+        String version = _manifest.getMainAttributes().getValue(vername);
+        if (version == null) {
+            vername = Name.SIGNATURE_VERSION.toString();
+            version = _manifest.getMainAttributes().getValue(vername);
+        }
+
+        if (version != null) {
+        	builder.append(vername+": "+version+"\r\n");
+        }
+		// write out all attributes except for the version
+        // we wrote out earlier
 		for (Entry<Object, Object> pairs : _manifest.getMainAttributes().entrySet()) {
-			builder.append(pairs.getKey());
-			builder.append(": ");
 			Object key = pairs.getKey();
+			String keyString = key.toString();
 			Object value = pairs.getValue();
-			if((key.toString().equals("Require-Bundle") || key.toString().equals("Export-Package")) && value instanceof String && !((String)value).contains("\n")){
-				String val = (String) value;
-				String newVal = val.replaceAll(",", ",\n ");
-				builder.append(newVal);
+			if ((version != null) && ! (keyString.equalsIgnoreCase(vername))) {
+				builder.append(keyString);
+				builder.append(": ");
+				if((keyString.equals("Require-Bundle") || keyString.equals("Export-Package")) && value instanceof String && !((String)value).contains("\n")){
+					String val = (String) value;
+					String newVal = val.replaceAll(",", ",\n ");
+					builder.append(newVal);
+				}
+				else{
+					builder.append(value);
+				}
+				builder.append("\n");
+				//builder.append(System.getProperty("line.separator"));
 			}
-			else{
-				builder.append(pairs.getValue());
-			}
-			builder.append("\n");
-			//builder.append(System.getProperty("line.separator"));
 		}
-		out.write(builder.toString().getBytes());			
+		out.write(builder.toString().getBytes());		
 	}
 	
 	private void writeManifest(IFile outputFile) throws IOException, CoreException {
