@@ -28,12 +28,12 @@
 				 keyfile="${key.file}"
 				 passphrase=""
 			     trust="yes"
-			     command="rm -Rf ${deploy.path}/update;  
-						  mkdir ${deploy.path}/update;
-						  rm -Rf ${deploy.path}/update_${TODAY_UK};
-						  mkdir ${deploy.path}/update_${TODAY_UK};"/>
-		<echo>Uploading to ${deploy.server}:${deploy.path}/update</echo>
-		<scp todir="${deploy.user}@${deploy.server}:${deploy.path}/updates"
+			     command="rm -Rf ${deploy.path}/updates/latest;  
+						  mkdir ${deploy.path}/updates/latest;
+						  rm -Rf ${deploy.path}/updates/${TODAY_UK};
+						  mkdir ${deploy.path}/updates/${TODAY_UK};"/>
+		<echo>Uploading to ${deploy.server}:${deploy.path}/updates/latest</echo>
+		<scp todir="${deploy.user}@${deploy.server}:${deploy.path}/updates/latest"
 			keyfile="${key.file}"
 			passphrase=""
 		    trust="yes">
@@ -41,8 +41,8 @@
 		      <include name="**/**"/>
 		    </fileset>
 		</scp>
-		<echo>Uploading to ${deploy.server}:${deploy.path}/update_${TODAY_UK}</echo>
-		<scp todir="${deploy.user}@${deploy.server}:${deploy.path}/update_${TODAY_UK}"
+		<echo>Uploading to ${deploy.server}:${deploy.path}/updates/${TODAY_UK}</echo>
+		<scp todir="${deploy.user}@${deploy.server}:${deploy.path}/updates/${TODAY_UK}"
 					keyfile="${key.file}"
 					passphrase=""
 				    trust="yes">
