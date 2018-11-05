@@ -6,7 +6,7 @@
    <feature url="features/fr.inria.diverse.commons.provisionner4eclipse.feature_1.0.0.qualifier.jar" id="fr.inria.diverse.commons.provisionner4eclipse.feature" version="1.0.0.qualifier">
       <category name="diverse_commons"/>
    </feature>
-   <feature url="features/org.eclipse.emf.ecoretools.registration.feature_0.1.2.qualifier.jar" id="org.eclipse.emf.ecoretools.registration.feature" version="0.1.2.qualifier">
+   <feature url="features/org.eclipse.emf.ecoretools.registration.feature_3.3.0.qualifier.jar" id="org.eclipse.emf.ecoretools.registration.feature" version="3.3.0.qualifier">
       <category name="diverse_commons"/>
    </feature>
    <category-def name="diverse_commons" label="DiverSE Commons"/>
