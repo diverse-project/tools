@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: ASM Tests
-Bundle-SymbolicName: fr.inria.diverse.commons.asm.tests
-Bundle-Version: 1.0.0.qualifier
-Fragment-Host: fr.inria.diverse.commons.asm
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: org.junit;bundle-version="4.11.0",
- fr.inria.diverse.commons.asm

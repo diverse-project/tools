@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ActivationPolicy: lazy
-Bundle-Localization: plugin
-
- 
